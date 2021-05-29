@@ -26,11 +26,7 @@ class PasteController extends Controller
 
     public function store(PasteRequest $request)
     {
-        $paste = Paste::create([
-            'user_id' => Auth::id(),
-            'title' => $request->title,
-            'slug' => $this->generateSlug($request->title),
-        ]);
+        $paste = $this->storePaste($request->title);
 
         return $this->storeLinks($request->links, $paste);
     }
@@ -78,17 +74,22 @@ class PasteController extends Controller
             'title' => 'required',
         ]);
 
-        $paste = Paste::create([
-            'user_id' => Auth::id(),
-            'title' => $request->title,
-            'slug' => $this->generateSlug($request->title),
-        ]);
-
-        return new PasteResource($paste);
+        return new PasteResource($this->storePaste($request->title));
     }
 
     private function generateSlug(string $title): string
     {
         return Str::slug(Str::words($title, 3, '') . '-' . Str::random(10));
+    }
+
+    private function storePaste(string $title)
+    {
+        $paste = Paste::create([
+            'user_id' => Auth::id(),
+            'title' => $title,
+            'slug' => $this->generateSlug($title),
+        ]);
+
+        return $paste;
     }
 }
