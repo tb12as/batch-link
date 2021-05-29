@@ -87,7 +87,7 @@ class PasteController extends Controller
         return new PasteResource($paste);
     }
 
-    private function generateSlug(string $title) : string
+    private function generateSlug(string $title): string
     {
         return Str::slug(Str::words($title, 3, '') . '-' . Str::random(10));
     }
