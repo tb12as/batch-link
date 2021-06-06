@@ -18,5 +18,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::view('{any}', 'app')->where('any', '.*');
+
 Route::get('/r/{hash}', [RedirectController::class, 'redirectView']);
 Route::get('get-link/{hash}', [RedirectController::class, 'getOriginalLink'])->name('link.get');
