@@ -31,7 +31,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::post('/paste/no-links', [PasteController::class, 'storeWithoutLinks']);
-    Route::get('/paste/title-only', [PasteController::class, 'indexTitle']);
     Route::apiResource('paste', PasteController::class)
         ->parameter('paste', 'paste:slug');
 

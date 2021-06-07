@@ -12,23 +12,12 @@ use Illuminate\Support\Str;
 
 class PasteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         return [
             'pastes' => PasteResource::collection(
-                Paste::with('links')
+                Paste::when($request->boolean('with-links'), fn ($q) => $q->with('links'))
                     ->where('user_id', Auth::id())
-                    ->latest()
-                    ->get()
-            )
-        ];
-    }
-
-    public function indexTitle()
-    {
-        return [
-            'pastes' => PasteResource::collection(
-                Paste::where('user_id', Auth::id())
                     ->latest()
                     ->get()
             )
