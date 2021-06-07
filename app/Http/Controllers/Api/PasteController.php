@@ -24,6 +24,17 @@ class PasteController extends Controller
         ];
     }
 
+    public function indexTitle()
+    {
+        return [
+            'pastes' => PasteResource::collection(
+                Paste::where('user_id', Auth::id())
+                    ->latest()
+                    ->get()
+            )
+        ];
+    }
+
     public function store(PasteRequest $request)
     {
         $paste = $this->storePaste($request->title);
