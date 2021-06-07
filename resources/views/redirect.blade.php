@@ -105,7 +105,7 @@
                     showRedirectButton(res);
                     setInterval(() => {
                         if (time == 0) {
-                            window.location = res;
+                            redirect(res);
                         } else {
                             time--;
                         }
@@ -114,7 +114,7 @@
                 }, 500);
             })
             .catch(err => {
-                alert(err);
+                console.log(err);
             });
     });
 
