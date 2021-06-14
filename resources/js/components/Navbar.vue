@@ -23,27 +23,23 @@
         <a class="navbar-item">Home</a>
 
         <a class="navbar-item">Documentation</a>
-
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link">More</a>
-
-          <div class="navbar-dropdown">
-            <a class="navbar-item">About</a>
-            <a class="navbar-item">Jobs</a>
-            <a class="navbar-item">Contact</a>
-            <hr class="navbar-divider" />
-            <a class="navbar-item">Report an issue</a>
-          </div>
-        </div>
       </div>
 
       <div class="navbar-end">
-        <div class="navbar-item">
+        <div class="navbar-item" v-if="! authStatus">
           <div class="buttons">
             <a class="button is-primary">
               <strong>Sign up</strong>
             </a>
             <router-link :to="{name: 'login'}" class="button is-light">Log in</router-link>
+          </div>
+        </div>
+
+        <div class="navbar-item has-dropdown is-hoverable" v-if="authStatus">
+          <a class="navbar-link">John Doe</a>
+
+          <div class="navbar-dropdown">
+            <a class="navbar-item" @click.prevent="logout">Logout</a>
           </div>
         </div>
       </div>
@@ -53,6 +49,18 @@
 
 <script>
 export default {
-    
-}
+  methods: {
+    logout() {
+      this.$store.dispatch("auth/logout").then(() => {
+        this.$router.push("/login");
+      });
+    }
+  },
+
+  computed: {
+    authStatus() {
+      return this.$store.state.auth.status;
+    }
+  }
+};
 </script>

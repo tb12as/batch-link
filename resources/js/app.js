@@ -1,18 +1,21 @@
-require('./bootstrap');
+require("./bootstrap");
 
-import './navbar.js';
-import router from './router';
+import Vue from "vue";
+import VueRouter from "vue-router";
 
-import Vue from 'vue';
-import VueRouter from 'vue-router';
+import "./navbar.js";
+import router from "./router";
+import store from "./store";
+
+import App from "./components/App.vue";
 
 Vue.use(VueRouter);
+
 Vue.config.productionTip = false;
 
-import App from './components/App.vue'
-
 new Vue({
-    el: '#app',
+    el: "#app",
     components: { App },
-    router
+    router,
+    store
 });

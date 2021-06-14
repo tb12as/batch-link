@@ -3,38 +3,48 @@
     <div class="column is-half card">
       <div class="card-content">
         <div class="content">
-          <form action>
-            <div class="field">
-              <label class="label">Name</label>
-              <div class="control">
-                <input class="input" type="text" placeholder="Text input" />
-              </div>
-            </div>
+          <!-- <div v-for="(v, i) in validation" :key="i">
+            <Error :message="v" />
+          </div>-->
 
-            <div class="field">
-              <label class="label">Username</label>
-              <div class="control">
-                <input class="input is-success" type="text" placeholder="Text input" value="bulma" />
-              </div>
-              <p class="help is-success">This username is available</p>
-            </div>
-
+          <form @submit.prevent="login">
             <div class="field">
               <label class="label">Email</label>
               <div class="control">
                 <input
-                  class="input is-danger"
+                  class="input"
                   type="email"
-                  placeholder="Email input"
-                  value="hello@"
+                  placeholder="Your Email"
+                  v-model="form.email"
+                  :class="{'is-danger' : keys.indexOf('email') != -1}"
                 />
+                <p
+                  v-if="keys.indexOf('email') != -1"
+                  class="help is-danger"
+                >{{ validation[keys.indexOf('email')] }}</p>
               </div>
-              <p class="help is-danger">This email is invalid</p>
+            </div>
+
+            <div class="field">
+              <label class="label">Password</label>
+              <div class="control">
+                <input
+                  class="input"
+                  type="password"
+                  placeholder="Password"
+                  v-model="form.password"
+                  :class="{'is-danger' : keys.indexOf('password') != -1}"
+                />
+                <p
+                  v-if="keys.indexOf('password') != -1"
+                  class="help is-danger"
+                >{{ validation[keys.indexOf('password')] }}</p>
+              </div>
             </div>
 
             <div class="field is-grouped">
               <div class="control">
-                <button class="button is-sm is-link">Submit</button>
+                <button type="submit" class="button is-sm is-link">Submit</button>
               </div>
             </div>
           </form>
@@ -45,9 +55,53 @@
 </template>
 
 <script>
+// import Error from "../components/Error";
 export default {
-    mounted() {
-        document.title = 'Login';
+  // components: {
+  //   Error
+  // },
+
+  data() {
+    return {
+      form: {
+        email: "",
+        password: ""
+      },
+      errors: []
+    };
+  },
+
+  mounted() {
+    axios.get("/sanctum/csrf-cookie");
+    document.title = "Login";
+  },
+
+  computed: {
+    validation() {
+      return Object.values(this.errors).flat();
+    },
+
+    keys() {
+      return Object.keys(this.errors).flat();
     }
-}
+  },
+
+  methods: {
+    login() {
+      this.errors = [];
+
+      this.$store
+        .dispatch("auth/login", this.form)
+        .then(() => {
+          this.$router.push("/home");
+        })
+        .catch(err => {
+          let status = err.response.status;
+          if (status == 422 || status == 401) {
+            this.errors = err.response.data.errors;
+          }
+        });
+    }
+  }
+};
 </script>
