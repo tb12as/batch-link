@@ -11,9 +11,5 @@ export default {
     components: {
         Navbar,
     },
-    
-    mounted() {
-        document.title = 'Hello World'
-    }
 }
 </script>

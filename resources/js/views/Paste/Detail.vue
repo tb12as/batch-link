@@ -56,6 +56,10 @@ export default {
     };
   },
 
+  created() {
+    document.title = "Paste Detail";
+  },
+
   mounted() {
     this.$store.dispatch("paste/detail", this.$route.params.slug).then(() => {
       this.load = false;

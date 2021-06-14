@@ -71,7 +71,7 @@ export default {
     };
   },
 
-  mounted() {
+  created() {
     axios.get("/sanctum/csrf-cookie");
     document.title = "Login";
   },

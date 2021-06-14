@@ -42,6 +42,10 @@
 
 <script>
 export default {
+  created() {
+    document.title = "Paste"
+  },
+
   mounted() {
     this.$store.dispatch("paste/get");
   },
