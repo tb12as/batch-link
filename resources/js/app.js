@@ -13,9 +13,11 @@ Vue.use(VueRouter);
 
 Vue.config.productionTip = false;
 
+store.dispatch("auth/getUser");
+
 new Vue({
-    el: "#app",
-    components: { App },
-    router,
-    store
+  el: "#app",
+  components: { App },
+  router,
+  store
 });

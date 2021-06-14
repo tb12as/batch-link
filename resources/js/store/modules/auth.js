@@ -18,15 +18,17 @@ const auth = {
   },
 
   actions: {
-    async login({ commit }, credentials) {
+    async login({ commit, dispatch }, credentials) {
       await axios.post("/login", credentials).then(res => {
         commit("setStatus", true);
+
+        dispatch("getUser");
       });
     },
 
     async getUser({ commit }) {
       await axios
-        .get("/user")
+        .get("/api/user")
         .then(res => {
           commit("setUser", res.data);
           commit("setStatus", true);

@@ -36,7 +36,7 @@
         </div>
 
         <div class="navbar-item has-dropdown is-hoverable" v-if="authStatus">
-          <a class="navbar-link">John Doe</a>
+          <a class="navbar-link">{{ user.name }}</a>
 
           <div class="navbar-dropdown">
             <a class="navbar-item" @click.prevent="logout">Logout</a>
@@ -60,6 +60,10 @@ export default {
   computed: {
     authStatus() {
       return this.$store.state.auth.status;
+    },
+
+    user() {
+      return this.$store.state.auth.user;
     }
   }
 };
