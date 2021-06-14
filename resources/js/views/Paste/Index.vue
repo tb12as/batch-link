@@ -1,6 +1,6 @@
 <template>
   <div class="columns">
-    <div class="column">
+    <div class="column m-1">
         {{ pastes }}
     </div>
   </div>
