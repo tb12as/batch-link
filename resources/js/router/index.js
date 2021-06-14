@@ -1,7 +1,9 @@
 import VueRouter from 'vue-router'
 
 import Login from '../views/Login.vue';
-import Paste from '../views/Paste/Index.vue';
+
+import PasteIndex from '../views/Paste/Index.vue';
+import PasteDetail from '../views/Paste/Detail.vue';
 
 const routes = [
     {
@@ -12,7 +14,12 @@ const routes = [
     {
         name: 'paste.index',
         path:'/home',
-        component: Paste
+        component: PasteIndex
+    },
+    {
+        name: 'paste.show',
+        path:'/paste/:slug',
+        component: PasteDetail
     }
 ]
 

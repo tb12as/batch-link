@@ -3,6 +3,7 @@ import Vuex from "vuex";
 // import router from "../router";
 
 import AuthModule from "./modules/auth";
+import PasteModule from "./modules/pastes";
 
 Vue.use(Vuex);
 
@@ -11,7 +12,8 @@ const store = new Vuex.Store({
   mutations: {},
   actions: {},
   modules: {
-    auth: AuthModule
+    auth: AuthModule,
+    paste: PasteModule
   }
 });
 
