@@ -13,7 +13,7 @@ const routes = [
     },
     {
         name: 'paste.index',
-        path:'/home',
+        path:'/paste',
         component: PasteIndex
     },
     {

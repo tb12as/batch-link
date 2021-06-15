@@ -93,7 +93,7 @@ export default {
       this.$store
         .dispatch("auth/login", this.form)
         .then(() => {
-          this.$router.push("/home");
+          this.$router.push({name: 'paste.index'});
         })
         .catch(err => {
           let status = err.response.status;
