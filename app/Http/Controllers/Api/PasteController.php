@@ -51,7 +51,7 @@ class PasteController extends Controller
     {
         $paste->delete();
 
-        return response()->json(['message' => 'Paste deleted']);
+        return response()->json(['message' => 'Paste deleted', 'slug' => $paste->slug]);
     }
 
     private function storeLinks(array $links, Paste $paste)

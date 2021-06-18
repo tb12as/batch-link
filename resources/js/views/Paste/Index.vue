@@ -6,6 +6,8 @@
           <p class="card-header-title">Your Paste</p>
         </div>
 
+        <delete-modal :slug="selectedSlug" :showed="deleteMode" @cencelOrDeleted="unselect"></delete-modal>
+
         <div class="card-content">
           <div class="content">
             <div class="table-container">
@@ -23,7 +25,10 @@
                     <td>{{ i+1 }}</td>
                     <td>{{ paste.title }}</td>
                     <td>
-                      <button class="button is-danger is-small m-1">Delete</button>
+                      <button
+                        class="button is-danger is-small m-1"
+                        @click="selectDel(paste.slug)"
+                      >Delete</button>
                       <router-link
                         class="button is-link is-small m-1"
                         :to="{name: 'paste.show', params: {slug: paste.slug}}"
@@ -41,9 +46,22 @@
 </template>
 
 <script>
+import DeleteModal from "../../components/ModalDeletePaste.vue";
+
 export default {
+  data() {
+    return {
+      deleteMode: false,
+      selectedSlug: ""
+    };
+  },
+
+  components: {
+    DeleteModal
+  },
+
   created() {
-    document.title = "Paste"
+    document.title = "Paste";
   },
 
   mounted() {
@@ -53,6 +71,18 @@ export default {
   computed: {
     pastes() {
       return this.$store.state.paste.pastes;
+    }
+  },
+
+  methods: {
+    selectDel(slug) {
+      this.selectedSlug = slug;
+      this.deleteMode = true;
+    },
+
+    unselect() {
+      this.selectedSlug = "";
+      this.deleteMode = false;
     }
   }
 };

@@ -26,6 +26,11 @@ const paste = {
       state.pastes.reverse();
       state.pastes.push(value);
       state.pastes.reverse();
+    },
+
+    deletePaste(state, slug) {
+      let index = state.pastes.findIndex(e => e.slug == slug);
+      state.pastes.splice(index, 1);
     }
   },
 
@@ -51,6 +56,12 @@ const paste = {
     async save({ commit }, form) {
       await axios.post("/api/paste/", form).then(res => {
         commit("pushNew", res.data);
+      });
+    },
+
+    async delete({ commit }, slug) {
+      await axios.delete("/api/paste/" + slug).then(res => {
+        commit("deletePaste", res.data.slug);
       });
     }
   }
