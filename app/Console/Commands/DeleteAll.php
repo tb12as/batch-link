@@ -14,14 +14,14 @@ class DeleteAll extends Command
      *
      * @var string
      */
-    protected $signature = 'clear:database';
+    protected $signature = 'db:truncate';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'wipe all data';
+    protected $description = 'Truncate all tables except users table';
 
     /**
      * Create a new command instance.
