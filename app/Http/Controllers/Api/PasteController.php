@@ -79,7 +79,7 @@ class PasteController extends Controller
 
     private function generateSlug(string $title): string
     {
-        return Str::slug(Str::words($title, 3, '') . '-' . Str::random(10));
+        return Str::slug(Str::words($title, 3, '') . '-' . uniqid());
     }
 
     private function storePaste(string $title)
