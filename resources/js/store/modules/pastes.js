@@ -1,3 +1,4 @@
+import { Store } from "vuex";
 import axios from "../../api";
 
 const paste = {
@@ -19,6 +20,12 @@ const paste = {
 
     setNeedLoad(state, value) {
       state.needLoad = value;
+    },
+
+    pushNew(state, value) {
+      state.pastes.reverse();
+      state.pastes.push(value);
+      state.pastes.reverse();
     }
   },
 
@@ -39,6 +46,12 @@ const paste = {
           commit("setSinglePaste", res.data);
         })
         .catch(err => {});
+    },
+
+    async save({ commit }, form) {
+      await axios.post("/api/paste/", form).then(res => {
+        commit("pushNew", res.data);
+      });
     }
   }
 };

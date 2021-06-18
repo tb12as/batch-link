@@ -19,10 +19,9 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu m-1">
-      <div class="navbar-start">
-        <a class="navbar-item">Home</a>
-
-        <a class="navbar-item">Documentation</a>
+      <div class="navbar-start" v-if="authStatus">
+        <router-link class="navbar-item" :to="{name: 'paste.index'}">Paste</router-link>
+        <router-link class="navbar-item" :to="{name: 'paste.create'}">Paste Create</router-link>
       </div>
 
       <div class="navbar-end">
