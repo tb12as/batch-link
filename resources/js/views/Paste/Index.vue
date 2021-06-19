@@ -21,6 +21,13 @@
                 </thead>
 
                 <tbody>
+                  <tr v-if="pastes.length < 1">
+                    <td colspan="3" class="has-text-centered">
+                      You don't have any paste yet, create one
+                      <router-link :to="{name: 'paste.create'}">here</router-link>
+                    </td>
+                  </tr>
+
                   <tr v-for="(paste, i) in pastes" :key="i">
                     <td>{{ i+1 }}</td>
                     <td>{{ paste.title }}</td>
