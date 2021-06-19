@@ -25,35 +25,6 @@
                   >{{ errorValues[keys.indexOf('title')] }}</p>
                 </div>
               </div>
-
-              <hr />
-              <div class="field">
-                <label class="label">Paste Links</label>
-                <div class="control">
-                  <input
-                    class="input m-1"
-                    type="text"
-                    placeholder="Link Title"
-                    v-model="links.title"
-                  />
-
-                  <input
-                    class="input m-1"
-                    type="text"
-                    placeholder="https://yourlink.com/..."
-                    v-model="links.original_link"
-                  />
-                </div>
-              </div>
-
-              <div class="field">
-                <button
-                  type="button"
-                  class="button is-smallm-1"
-                  :class="{'is-warning' : editLinkMode, 'is-primary': !editLinkMode}"
-                  @click.prevent="pushLink"
-                >{{ editLinkMode ? 'Edit' : 'Add' }} Link</button>
-              </div>
             </form>
           </div>
         </div>
@@ -68,9 +39,13 @@
 
         <div class="card-content">
           <div class="content">
-            <div v-for="(index, e) in linksIndexError" :key="index">
-              <Error :message="errorValues[e]" />
-            </div>
+            <article class="message is-danger" v-if="errorValues.length > 0">
+              <div class="message-body pt-2">
+                <ul v-for="(e, index) in errorValues" :key="index">
+                  <li>{{ e }}</li>
+                </ul>
+              </div>
+            </article>
 
             <table border="0">
               <tbody>
@@ -98,7 +73,35 @@
               </tbody>
             </table>
 
-            <button class="button is-primary is-small m-1" type="button" @click.prevent="save">Save</button>
+            <div class="field">
+              <label class="label">Paste Links</label>
+              <div class="control">
+                <input class="input m-1" type="text" placeholder="Link Title" v-model="links.title" />
+
+                <input
+                  class="input m-1"
+                  type="text"
+                  placeholder="https://yourlink.com/..."
+                  v-model="links.original_link"
+                />
+              </div>
+            </div>
+
+            <div class="field">
+              <button
+                type="button"
+                class="button is-small m-1 is-light"
+                :class="{'is-warning' : editLinkMode, 'is-primary': !editLinkMode}"
+                @click.prevent="pushLink"
+              >{{ editLinkMode ? 'Edit' : 'Add' }} Link</button>
+
+              <button
+                v-if="canSave"
+                class="button is-primary is-small m-1"
+                type="button"
+                @click.prevent="save"
+              >Save</button>
+            </div>
           </div>
         </div>
       </div>
@@ -117,6 +120,7 @@ export default {
     return {
       editLinkMode: false,
       editingIndex: null,
+      canSave: false,
       errors: [],
       form: {
         title: "",
@@ -153,6 +157,8 @@ export default {
         this.form.links[this.editingIndex] = { ...this.links };
       }
 
+      this.canSave = true;
+
       this.links.title = "";
       this.links.original_link = "";
 
@@ -162,6 +168,9 @@ export default {
 
     deleteLink(index) {
       this.form.links.splice(index, 1);
+      if (this.form.links.length < 1) {
+        this.canSave = false;
+      }
     },
 
     editLink(index) {
