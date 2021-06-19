@@ -1,5 +1,5 @@
 <template>
-  <div class="columns">
+  <div class="columns" v-if="! load">
     <div class="column m-1 mt-4">
       <div class="card">
         <div class="card-header">
@@ -51,6 +51,7 @@ import DeleteModal from "../../components/ModalDeletePaste.vue";
 export default {
   data() {
     return {
+      load: true,
       deleteMode: false,
       selectedSlug: ""
     };
@@ -65,7 +66,7 @@ export default {
   },
 
   mounted() {
-    this.$store.dispatch("paste/get");
+    this.getPastes();
   },
 
   computed: {
@@ -75,6 +76,12 @@ export default {
   },
 
   methods: {
+    getPastes() {
+      this.$store.dispatch("paste/get").then(() => {
+        this.load = false;
+      });
+    },
+
     selectDel(slug) {
       this.selectedSlug = slug;
       this.deleteMode = true;
