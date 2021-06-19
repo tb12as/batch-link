@@ -16,7 +16,7 @@
       </section>
       <footer class="modal-card-foot">
         <button class="button is-danger" @click.prevent="sendDelete">Delete</button>
-        <button class="button">Cancel</button>
+        <button class="button" @click.prevent="cencel">Cancel</button>
       </footer>
     </div>
   </div>
@@ -37,7 +37,7 @@ export default {
     },
 
     cencel() {
-        this.$emit("cencelOrDeleted");
+      this.$emit("cencelOrDeleted");
     }
   }
 };

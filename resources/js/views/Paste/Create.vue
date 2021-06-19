@@ -116,6 +116,10 @@ export default {
     Error
   },
 
+  created() {
+    document.title = "Paste Create";
+  },
+
   data() {
     return {
       editLinkMode: false,
