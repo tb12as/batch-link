@@ -110,12 +110,7 @@
 </template>
 
 <script>
-import Error from "../../components/Error.vue";
 export default {
-  components: {
-    Error
-  },
-
   created() {
     document.title = "Paste Create";
   },
