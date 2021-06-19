@@ -1,5 +1,6 @@
 <template>
   <div class="columns">
+    <modal-delete :showed="showModal" :slug="paste.slug" @cencelOrDeleted="toggleModal"></modal-delete>
     <div class="column m-1 mt-5">
       <div class="card" v-if="! load">
         <header class="card-header">
@@ -41,7 +42,7 @@
         <footer class="card-footer">
           <a href="#" class="card-footer-item">Save</a>
           <a href="#" class="card-footer-item">Edit</a>
-          <a href="#" class="card-footer-item">Delete</a>
+          <a href="#" class="card-footer-item" @click="toggleModal">Delete</a>
         </footer>
       </div>
     </div>
@@ -49,10 +50,16 @@
 </template>
 
 <script>
+import ModalDelete from "../../components/ModalDeletePaste.vue";
 export default {
+  components: {
+    ModalDelete
+  },
+
   data() {
     return {
-      load: true
+      load: true,
+      showModal: false
     };
   },
 
@@ -69,6 +76,16 @@ export default {
   computed: {
     paste() {
       return this.$store.state.paste.singlePaste;
+    }
+  },
+
+  methods: {
+    toggleModal() {
+      if (this.showModal) {
+        this.showModal = false;
+      } else {
+        this.showModal = true;
+      }
     }
   }
 };
