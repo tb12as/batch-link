@@ -14,14 +14,13 @@ class PasteController extends Controller
 {
     public function index(Request $request)
     {
-        return [
-            'pastes' => PasteResource::collection(
-                Paste::when($request->boolean('with-links'), fn ($q) => $q->with('links'))
-                    ->where('user_id', Auth::id())
-                    ->latest()
-                    ->get()
-            )
-        ];
+        return PasteResource::collection(
+            Paste::when($request->boolean('with-links'), fn ($q) => $q->with('links'))
+                ->where('user_id', Auth::id())
+                ->latest()
+                ->paginate(10)
+                ->onEachSide(1)
+        );
     }
 
     public function store(PasteRequest $request)
@@ -51,7 +50,7 @@ class PasteController extends Controller
     {
         $paste->delete();
 
-        return response()->json(['message' => 'Paste deleted', 'slug' => $paste->slug]);
+        return response()->json(['message' => 'Paste deleted']);
     }
 
     private function storeLinks(array $links, Paste $paste)

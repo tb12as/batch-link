@@ -6,7 +6,8 @@ const paste = {
   state: {
     needLoad: true,
     pastes: [],
-    singlePaste: {}
+    singlePaste: {},
+    pageNow: null
   },
 
   mutations: {
@@ -23,14 +24,18 @@ const paste = {
     },
 
     pushNew(state, value) {
-      state.pastes.reverse();
-      state.pastes.push(value);
-      state.pastes.reverse();
+      state.pastes.data.reverse();
+      state.pastes.data.push(value);
+      state.pastes.data.reverse();
     },
 
     deletePaste(state, slug) {
-      let index = state.pastes.findIndex(e => e.slug == slug);
-      state.pastes.splice(index, 1);
+      let index = state.pastes.data.findIndex(e => e.slug == slug);
+      state.pastes.data.splice(index, 1);
+    },
+
+    setPageNow(state, value) {
+      state.pageNow = value;
     }
   },
 
@@ -38,8 +43,18 @@ const paste = {
     async get({ commit, state }) {
       if (state.needLoad) {
         await axios.get("/api/paste").then(res => {
-          commit("setPaste", res.data.pastes);
+          commit("setPaste", res.data);
           commit("setNeedLoad", false);
+        });
+      }
+    },
+
+    async paginateOnChange({ commit }, url) {
+      if (url) {
+        const page = url.split("?")[1];
+        await axios.get("/api/paste?" + page).then(res => {
+          commit("setPaste", res.data);
+          commit("setPageNow", page);
         });
       }
     },
@@ -59,9 +74,16 @@ const paste = {
       });
     },
 
-    async delete({ commit }, slug) {
-      await axios.delete("/api/paste/" + slug).then(res => {
-        commit("deletePaste", res.data.slug);
+    async delete({ dispatch, state, commit }, slug) {
+      commit("setNeedLoad", true);
+
+      await axios.delete("/api/paste/" + slug).then(() => {
+        if (!state.pageNow || (state.pageNow && state.pastes.data.length < 2)) {
+          dispatch("get");
+          commit('setPageNow', null);
+        } else {
+          dispatch("paginateOnChange", `t?${state.pageNow}`);
+        } 
       });
     }
   }

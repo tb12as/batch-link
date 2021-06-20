@@ -21,14 +21,14 @@
                 </thead>
 
                 <tbody>
-                  <tr v-if="pastes.length < 1">
+                  <tr v-if="pastes.data.length < 1">
                     <td colspan="3" class="has-text-centered">
                       You don't have any paste yet, create one
                       <router-link :to="{name: 'paste.create'}">here</router-link>
                     </td>
                   </tr>
 
-                  <tr v-for="(paste, i) in pastes" :key="i">
+                  <tr v-for="(paste, i) in pastes.data" :key="i">
                     <td>{{ i+1 }}</td>
                     <td>{{ paste.title }}</td>
                     <td>
@@ -45,6 +45,40 @@
                 </tbody>
               </table>
             </div>
+
+            <nav
+              class="pagination is-rounded"
+              role="navigation"
+              aria-label="pagination"
+              v-if="pastes.meta.links.slice(1, -1).length > 1"
+            >
+              <a
+                class="pagination-previous"
+                title="This is the first page"
+                @click.prevent="paginateOnChange(pastes.links.prev)"
+                :disabled="!pastes.links.prev"
+              >Previous</a>
+
+              <a
+                class="pagination-next"
+                @click.prevent="paginateOnChange(pastes.links.next)"
+                :disabled="!pastes.links.next"
+              >Next page</a>
+
+              <ul class="pagination-list">
+                <li v-for="(link, i) in pastes.meta.links.slice(1, -1)" :key="i">
+                  <a
+                    class="pagination-link"
+                    :class="{'is-current' : link.active}"
+                    :aria-label="`Page ${link.label}`"
+                    :aria-current="{'page' : link.active}"
+                    :disabled="!link.url"
+                    @click.prevent="paginateOnChange(link.url, link.active)"
+                    v-html="link.label"
+                  ></a>
+                </li>
+              </ul>
+            </nav>
           </div>
         </div>
       </div>
@@ -97,6 +131,12 @@ export default {
     unselect() {
       this.selectedSlug = "";
       this.deleteMode = false;
+    },
+
+    paginateOnChange(url, isActive) {
+      if (!isActive) {
+        this.$store.dispatch("paste/paginateOnChange", url);
+      }
     }
   }
 };
