@@ -11,6 +11,8 @@
         aria-label="menu"
         aria-expanded="false"
         data-target="navbarBasicExample"
+        @click.prevent="openOrClose"
+        :class="{'is-active' : open}"
       >
         <span aria-hidden="true"></span>
         <span aria-hidden="true"></span>
@@ -18,7 +20,7 @@
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu m-1">
+    <div id="navbarBasicExample" class="navbar-menu m-1" :class="{'is-active' : open}">
       <div class="navbar-start" v-if="authStatus">
         <router-link class="navbar-item" :to="{name: 'paste.index'}">Paste</router-link>
         <router-link class="navbar-item" :to="{name: 'paste.create'}">Paste Create</router-link>
@@ -48,7 +50,21 @@
 
 <script>
 export default {
+  data() {
+    return {
+      open: false
+    };
+  },
+
   methods: {
+    openOrClose() {
+      if (this.open) {
+        this.open = false;
+      } else {
+        this.open = true;
+      }
+    },
+
     logout() {
       this.$store.dispatch("auth/logout").then(() => {
         this.$router.push("/login");
