@@ -44,7 +44,7 @@
 
             <div class="field is-grouped">
               <div class="control">
-                <button type="submit" class="button is-sm is-link">Submit</button>
+                <button type="submit" class="button is-sm is-link">Login</button>
               </div>
             </div>
           </form>
