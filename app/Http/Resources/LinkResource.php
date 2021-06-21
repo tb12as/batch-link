@@ -19,6 +19,7 @@ class LinkResource extends JsonResource
             'title' => $this->title,
             'original_link' => $this->original_link,
             'hash' => $this->hash,
+            'link_id' => $this->when($request->action == 'update', $this->id),
         ];
     }
 }
