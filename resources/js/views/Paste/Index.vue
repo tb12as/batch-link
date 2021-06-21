@@ -108,6 +108,7 @@ export default {
 
   created() {
     document.title = "Paste";
+    this.$store.commit("setNotFound", false);
   },
 
   mounted() {
