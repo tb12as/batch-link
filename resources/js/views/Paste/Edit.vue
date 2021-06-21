@@ -5,7 +5,7 @@
     <div class="column is-half mt-4" v-if="! pasteNotFound && ! load">
       <div class="card">
         <div class="card-header">
-          <p class="card-header-title">Paste Create</p>
+          <p class="card-header-title">Paste Edit</p>
         </div>
 
         <div class="card-content">
@@ -36,7 +36,7 @@
     <div class="column is-half mt-4" v-if="! pasteNotFound && ! load">
       <div class="card">
         <div class="card-header">
-          <p class="card-header-title">Paste Edit</p>
+          <p class="card-header-title">Paste Links Edit</p>
         </div>
 
         <div class="card-content">
