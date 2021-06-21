@@ -1,5 +1,10 @@
 <template>
-  <nav class="navbar is-fixed-top is-light" role="navigation" aria-label="main navigation">
+  <nav
+    class="navbar is-fixed-top is-light"
+    role="navigation"
+    aria-label="main navigation"
+    v-if="! isNotFound"
+  >
     <div class="navbar-brand m-1">
       <a class="navbar-item" href="https://bulma.io">
         <h5 class="has-text-weight-bold">Paste Links</h5>
@@ -79,6 +84,10 @@ export default {
 
     user() {
       return this.$store.state.auth.user;
+    },
+
+    isNotFound() {
+      return this.$store.state.isNotFound;
     }
   }
 };

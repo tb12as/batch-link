@@ -2,6 +2,8 @@ import VueRouter from "vue-router";
 
 import Login from "../views/Login.vue";
 
+import NotFound from "../views/NotFound.vue";
+
 import PasteIndex from "../views/Paste/Index.vue";
 import PasteDetail from "../views/Paste/Detail.vue";
 import PasteCreate from "../views/Paste/Create.vue";
@@ -10,6 +12,11 @@ import PasteEdit from "../views/Paste/Edit.vue";
 import auth from "../store/modules/auth";
 
 const routes = [
+  {
+    path: "*",
+    component: NotFound,
+    name: "not.found"
+  },
   {
     name: "login",
     path: "/login",

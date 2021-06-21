@@ -9,8 +9,14 @@ import LinkModule from "./modules/links";
 Vue.use(Vuex);
 
 const store = new Vuex.Store({
-  state: {},
-  mutations: {},
+  state: {
+    isNotFound: false,
+  },
+  mutations: {
+    setNotFound(state, value) {
+      state.isNotFound = value;
+    }
+  },
   actions: {},
   modules: {
     auth: AuthModule,
