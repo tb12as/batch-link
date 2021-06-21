@@ -14,7 +14,7 @@ class AddSlugToPastesTable extends Migration
     public function up()
     {
         Schema::table('pastes', function (Blueprint $table) {
-            $table->string('slug');
+            $table->string('slug')->after('title');
         });
     }
 
