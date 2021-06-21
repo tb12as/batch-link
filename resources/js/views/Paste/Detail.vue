@@ -40,7 +40,11 @@
           </div>
         </div>
         <footer class="card-footer">
-          <a href="#" class="card-footer-item">Edit</a>
+          <router-link
+            class="card-footer-item"
+            :to="{name: 'paste.edit', params: {slug: paste.slug}}"
+          >Edit</router-link>
+
           <a href="#" class="card-footer-item" @click.prevent="toggleModal">Delete</a>
         </footer>
       </div>

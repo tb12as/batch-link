@@ -40,6 +40,10 @@
                         class="button is-link is-small m-1"
                         :to="{name: 'paste.show', params: {slug: paste.slug}}"
                       >Detail</router-link>
+                      <router-link
+                        class="button is-warning is-small m-1"
+                        :to="{name: 'paste.edit', params: {slug: paste.slug}}"
+                      >Edit</router-link>
                     </td>
                   </tr>
                 </tbody>
