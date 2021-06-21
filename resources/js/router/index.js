@@ -5,6 +5,7 @@ import Login from "../views/Login.vue";
 import PasteIndex from "../views/Paste/Index.vue";
 import PasteDetail from "../views/Paste/Detail.vue";
 import PasteCreate from "../views/Paste/Create.vue";
+import PasteEdit from "../views/Paste/Edit.vue";
 
 import auth from "../store/modules/auth";
 
@@ -33,11 +34,18 @@ const routes = [
       requiresAuth: true
     }
   },
-
   {
     name: "paste.create",
     path: "/paste/create",
     component: PasteCreate,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    name: "paste.edit",
+    path: "/paste/:slug/edit",
+    component: PasteEdit,
     meta: {
       requiresAuth: true
     }

@@ -74,16 +74,28 @@ const paste = {
       });
     },
 
+    async getUpdateData({ commit }, slug) {
+      await axios.get(`/api/paste/${slug}?action=update`).then(res => {
+        commit("setSinglePaste", res.data);
+      });
+    },
+
+    async update({ commit }, form) {
+      await axios.patch("/api/paste/" + form.slug, form).then(res => {
+        commit("setNeedLoad", true);
+      });
+    },
+
     async delete({ dispatch, state, commit }, slug) {
       commit("setNeedLoad", true);
 
       await axios.delete("/api/paste/" + slug).then(() => {
         if (!state.pageNow || (state.pageNow && state.pastes.data.length < 2)) {
           dispatch("get");
-          commit('setPageNow', null);
+          commit("setPageNow", null);
         } else {
           dispatch("paginateOnChange", `t?${state.pageNow}`);
-        } 
+        }
       });
     }
   }

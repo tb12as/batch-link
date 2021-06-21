@@ -4,6 +4,7 @@ import Vuex from "vuex";
 
 import AuthModule from "./modules/auth";
 import PasteModule from "./modules/pastes";
+import LinkModule from "./modules/links";
 
 Vue.use(Vuex);
 
@@ -13,7 +14,8 @@ const store = new Vuex.Store({
   actions: {},
   modules: {
     auth: AuthModule,
-    paste: PasteModule
+    paste: PasteModule,
+    link: LinkModule
   }
 });
 
