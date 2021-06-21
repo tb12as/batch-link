@@ -22,11 +22,11 @@ class PasteFactory extends Factory
      */
     public function definition()
     {
-        $title = $this->faker->sentence();
+        $title = $this->faker->sentence(3);
         return [
             'user_id' => 1,
             'title' => $title,
-            'slug' => Str::slug($title)
+            'slug' => Str::slug($title .'-'. uniqid())
         ];
     }
 }
