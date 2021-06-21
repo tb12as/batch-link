@@ -34,7 +34,7 @@ class PasteController extends Controller
     {
         return new PasteResource(
             Paste::with('links')
-                ->where('slug', $slug)
+                ->where(['slug' => $slug, 'user_id' => Auth::id()])
                 ->firstOrFail()
         );
     }
