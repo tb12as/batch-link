@@ -1,8 +1,10 @@
 <template>
-  <div class="columns">
-    <modal-delete :showed="showModal" :slug="paste.slug" @cencelOrDeleted="toggleModal"></modal-delete>
-    <div class="column m-1 mt-5">
-      <div class="card" v-if="! load">
+  <div :class="{'columns' : !pasteNotFound}">
+    <NotFound v-if="pasteNotFound" />
+
+    <div class="column m-1 mt-5" v-if="! load && !pasteNotFound">
+      <modal-delete :showed="showModal" :slug="paste.slug" @cencelOrDeleted="toggleModal"></modal-delete>
+      <div class="card">
         <header class="card-header">
           <p class="card-header-title">{{ paste.title }}</p>
         </header>
@@ -54,9 +56,11 @@
 
 <script>
 import ModalDelete from "../../components/ModalDeletePaste.vue";
+import NotFound from "../PasteNotFound.vue";
 export default {
   components: {
-    ModalDelete
+    ModalDelete,
+    NotFound
   },
 
   data() {
@@ -68,17 +72,29 @@ export default {
 
   created() {
     document.title = "Paste Detail";
+    this.$store.commit("setPasteNotFound", false);
   },
 
   mounted() {
-    this.$store.dispatch("paste/detail", this.$route.params.slug).then(() => {
-      this.load = false;
-    });
+    this.$store
+      .dispatch("paste/detail", this.$route.params.slug)
+      .then(() => {
+        this.load = false;
+      })
+      .catch(error => {
+        if (error.response.status === 404) {
+          this.$store.commit("setPasteNotFound", true);
+        }
+      });
   },
 
   computed: {
     paste() {
       return this.$store.state.paste.singlePaste;
+    },
+
+    pasteNotFound() {
+      return this.$store.state.pasteNotFound;
     }
   },
 

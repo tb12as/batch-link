@@ -60,12 +60,9 @@ const paste = {
     },
 
     async detail({ commit }, slug) {
-      await axios
-        .get("/api/paste/" + slug)
-        .then(res => {
-          commit("setSinglePaste", res.data);
-        })
-        .catch(err => {});
+      await axios.get("/api/paste/" + slug).then(res => {
+        commit("setSinglePaste", res.data);
+      });
     },
 
     async save({ commit }, form) {

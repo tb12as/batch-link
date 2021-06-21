@@ -1,6 +1,8 @@
 <template>
-  <div class="columns">
-    <div class="column is-half mt-4">
+  <div :class="{'columns' : !pasteNotFound}">
+    <NotFound v-if="pasteNotFound" />
+
+    <div class="column is-half mt-4" v-if="! pasteNotFound && ! load">
       <div class="card">
         <div class="card-header">
           <p class="card-header-title">Paste Create</p>
@@ -31,10 +33,10 @@
       </div>
     </div>
 
-    <div class="column is-half mt-4">
+    <div class="column is-half mt-4" v-if="! pasteNotFound && ! load">
       <div class="card">
         <div class="card-header">
-          <p class="card-header-title">Paste Create</p>
+          <p class="card-header-title">Paste Edit</p>
         </div>
 
         <div class="card-content">
@@ -110,14 +112,12 @@
 </template>
 
 <script>
-export default {
-  created() {
-    document.title = "Paste Create";
-    this.getPaste();
-  },
+import NotFound from "../PasteNotFound.vue";
 
+export default {
   data() {
     return {
+      load: true,
       editLinkMode: false,
       editingIndex: null,
       canSave: false,
@@ -134,24 +134,10 @@ export default {
     };
   },
 
-  computed: {
-    keys() {
-      return Object.keys(this.errors).flat();
-    },
-
-    errorValues() {
-      return Object.values(this.errors).flat();
-    },
-
-    linksIndexError() {
-      let z = this.keys.join("").match(/\d/g);
-
-      return z ? z.map(x => parseInt(x)) : "";
-    },
-
-    singlePaste() {
-      return this.$store.state.paste.singlePaste;
-    }
+  created() {
+    document.title = "Paste Create";
+    this.getPaste();
+    this.$store.commit("setPasteNotFound", false);
   },
 
   methods: {
@@ -164,6 +150,11 @@ export default {
 
           if (this.singlePaste.links.length > 0) {
             this.canSave = true;
+          }
+        })
+        .catch(error => {
+          if (error.response.status === 404) {
+            this.$store.commit("setPasteNotFound", true);
           }
         });
     },
@@ -225,6 +216,34 @@ export default {
       } else {
         this.errors = { title: "The title field is required" };
       }
+    }
+  },
+
+  components: {
+    NotFound
+  },
+
+  computed: {
+    keys() {
+      return Object.keys(this.errors).flat();
+    },
+
+    errorValues() {
+      return Object.values(this.errors).flat();
+    },
+
+    linksIndexError() {
+      let z = this.keys.join("").match(/\d/g);
+
+      return z ? z.map(x => parseInt(x)) : "";
+    },
+
+    singlePaste() {
+      return this.$store.state.paste.singlePaste;
+    },
+
+    pasteNotFound() {
+      return this.$store.state.pasteNotFound;
     }
   }
 };

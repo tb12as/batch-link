@@ -11,10 +11,15 @@ Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     isNotFound: false,
+    pasteNotFound: false,
   },
   mutations: {
     setNotFound(state, value) {
       state.isNotFound = value;
+    },
+    
+    setPasteNotFound(state, value) {
+      state.pasteNotFound = value;
     }
   },
   actions: {},
