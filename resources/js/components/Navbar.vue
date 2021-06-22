@@ -27,18 +27,35 @@
 
     <div id="navbarBasicExample" class="navbar-menu m-1" :class="{'is-active' : open}">
       <div class="navbar-start" v-if="authStatus">
-        <router-link class="navbar-item" :to="{name: 'paste.index'}">Paste</router-link>
-        <router-link class="navbar-item" :to="{name: 'paste.create'}">Paste Create</router-link>
+        <router-link
+          class="navbar-item"
+          @click.native="openOrClose"
+          :to="{name: 'paste.index'}"
+        >Paste</router-link>
+
+        <router-link
+          class="navbar-item"
+          @click.native="openOrClose"
+          :to="{name: 'paste.create'}"
+        >Paste Create</router-link>
       </div>
 
       <div class="navbar-end">
         <div class="navbar-item" v-if="! authStatus">
           <div class="buttons">
-            <router-link :to="{name: 'register'}" class="button is-primary">
+            <router-link
+              @click.native="openOrClose"
+              :to="{name: 'register'}"
+              class="button is-primary"
+            >
               <strong>Sign up</strong>
             </router-link>
 
-            <router-link :to="{name: 'login'}" class="button is-light">Log in</router-link>
+            <router-link
+              @click.native="openOrClose"
+              :to="{name: 'login'}"
+              class="button is-light"
+            >Log in</router-link>
           </div>
         </div>
 
@@ -73,6 +90,7 @@ export default {
 
     logout() {
       this.$store.dispatch("auth/logout").then(() => {
+        this.openOrClose();
         this.$router.push("/login");
         this.$store.commit("paste/setNeedLoad", true);
       });
