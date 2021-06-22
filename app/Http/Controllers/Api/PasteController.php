@@ -41,7 +41,10 @@ class PasteController extends Controller
 
     public function update(PasteRequest $request, Paste $paste)
     {
-        $paste->update(['title' => $request->title]);
+        $paste->update([
+            'title' => $request->title,
+            'slug' => $this->generateSlug($request->title),
+        ]);
 
         return $this->storeLinks($request->links, $paste);
     }
