@@ -28,7 +28,7 @@
                     <a
                       class="button is-small is-link is-light m-1"
                       target="blank"
-                      :href="'http://localhost:8000/r/'+link.hash"
+                      :href="`${appUrl}r/${link.hash}`"
                     >Test Redirect</a>
                     <a
                       class="button is-small is-link is-light m-1"
@@ -95,6 +95,10 @@ export default {
 
     pasteNotFound() {
       return this.$store.state.pasteNotFound;
+    },
+
+    appUrl() {
+      return this.$store.state.appUrl;
     }
   },
 

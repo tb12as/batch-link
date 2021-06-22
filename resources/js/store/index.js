@@ -12,6 +12,7 @@ const store = new Vuex.Store({
   state: {
     isNotFound: false,
     pasteNotFound: false,
+    appUrl: process.env.MIX_BASE_URL,
   },
   mutations: {
     setNotFound(state, value) {
