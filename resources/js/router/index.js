@@ -1,6 +1,7 @@
 import VueRouter from "vue-router";
 
 import Login from "../views/Login.vue";
+import Register from "../views/Register.vue";
 
 import NotFound from "../views/NotFound.vue";
 
@@ -21,6 +22,14 @@ const routes = [
     name: "login",
     path: "/login",
     component: Login,
+    meta: {
+      loginPage: true
+    }
+  },
+  {
+    name: "register",
+    path: "/sign-up",
+    component: Register,
     meta: {
       loginPage: true
     }

@@ -34,9 +34,10 @@
       <div class="navbar-end">
         <div class="navbar-item" v-if="! authStatus">
           <div class="buttons">
-            <a class="button is-primary">
+            <router-link :to="{name: 'register'}" class="button is-primary">
               <strong>Sign up</strong>
-            </a>
+            </router-link>
+
             <router-link :to="{name: 'login'}" class="button is-light">Log in</router-link>
           </div>
         </div>
