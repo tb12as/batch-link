@@ -85,6 +85,6 @@ class PasteController extends Controller
             ]);
         }
 
-        return new PasteResource(Paste::with('links')->find($paste->id));
+        return new PasteResource($paste);
     }
 }
