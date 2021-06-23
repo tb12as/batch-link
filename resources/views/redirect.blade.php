@@ -46,7 +46,8 @@
 
 <body>
     <div class="force-center">
-        <p id="message">If this page don't do anything, I think you should turn on your JavaScript </p>
+        <noscript>If this page don't do anything, I think you should turn on your JavaScript </noscript>
+        <p id="message"></p>
     </div>
 </body>
 
