@@ -43,7 +43,7 @@ class PasteController extends Controller
     {
         $paste->update([
             'title' => $request->title,
-            'slug' => $this->generateSlug($request->title),
+            'slug' => Str::slug(Str::words($request->title, 3, '') . '-' . uniqid()),
         ]);
 
         return $this->storeLinks($request->links, $paste);
@@ -54,6 +54,24 @@ class PasteController extends Controller
         $paste->delete();
 
         return response()->json(['message' => 'Paste deleted']);
+    }
+
+    public function storeWithoutLinks(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required',
+        ]);
+
+        return new PasteResource($this->storePaste($request->title));
+    }
+
+    private function storePaste(string $title)
+    {
+       return Paste::create([
+            'user_id' => Auth::id(),
+            'title' => $title,
+            'slug' => Str::slug(Str::words($title, 3, '') . '-' . uniqid()),
+        ]);
     }
 
     private function storeLinks(array $links, Paste $paste)
@@ -68,30 +86,5 @@ class PasteController extends Controller
         }
 
         return new PasteResource(Paste::with('links')->find($paste->id));
-    }
-
-    public function storeWithoutLinks(Request $request)
-    {
-        $this->validate($request, [
-            'title' => 'required',
-        ]);
-
-        return new PasteResource($this->storePaste($request->title));
-    }
-
-    private function generateSlug(string $title): string
-    {
-        return Str::slug(Str::words($title, 3, '') . '-' . uniqid());
-    }
-
-    private function storePaste(string $title)
-    {
-        $paste = Paste::create([
-            'user_id' => Auth::id(),
-            'title' => $title,
-            'slug' => $this->generateSlug($title),
-        ]);
-
-        return $paste;
     }
 }
