@@ -5,9 +5,10 @@
         <div class="content">
           <form @submit.prevent="register">
             <div class="field">
-              <label class="label">Name</label>
+              <label class="label" for="name">Name</label>
               <div class="control">
                 <input
+                  id="name"
                   class="input"
                   type="text"
                   placeholder="Your Name"
@@ -22,9 +23,10 @@
             </div>
 
             <div class="field">
-              <label class="label">Email</label>
+              <label class="label" for="email">Email</label>
               <div class="control">
                 <input
+                  id="email"
                   class="input"
                   type="email"
                   placeholder="Your Email"
@@ -39,9 +41,10 @@
             </div>
 
             <div class="field">
-              <label class="label">Password</label>
+              <label class="label" for="password">Password</label>
               <div class="control">
                 <input
+                  id="password"
                   class="input"
                   type="password"
                   placeholder="Password"
@@ -56,12 +59,13 @@
             </div>
 
             <div class="field">
-              <label class="label">Email</label>
+              <label class="label" for="password_c">Password Confirmation</label>
               <div class="control">
                 <input
+                  id="password_c"
                   class="input"
                   type="password"
-                  placeholder="Your Email"
+                  placeholder="Password Confirmation"
                   v-model="form.password_confirmation"
                   :class="{'is-danger' : keys.includes('password_confirmation')}"
                 />

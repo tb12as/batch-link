@@ -3,40 +3,38 @@
     <div class="column is-half card">
       <div class="card-content">
         <div class="content">
-          <!-- <div v-for="(v, i) in validation" :key="i">
-            <Error :message="v" />
-          </div>-->
-
           <form @submit.prevent="login">
             <div class="field">
-              <label class="label">Email</label>
+              <label class="label" for="email">Email</label>
               <div class="control">
                 <input
+                  id="email"
                   class="input"
                   type="email"
                   placeholder="Your Email"
                   v-model="form.email"
-                  :class="{'is-danger' : keys.indexOf('email') != -1}"
+                  :class="{'is-danger' : keys.includes('email')}"
                 />
                 <p
-                  v-if="keys.indexOf('email') != -1"
+                  v-if="keys.includes('email')"
                   class="help is-danger"
                 >{{ validation[keys.indexOf('email')] }}</p>
               </div>
             </div>
 
             <div class="field">
-              <label class="label">Password</label>
+              <label class="label" for="password">Password</label>
               <div class="control">
                 <input
+                  id="password"
                   class="input"
                   type="password"
                   placeholder="Password"
                   v-model="form.password"
-                  :class="{'is-danger' : keys.indexOf('password') != -1}"
+                  :class="{'is-danger' : keys.includes('password')}"
                 />
                 <p
-                  v-if="keys.indexOf('password') != -1"
+                  v-if="keys.includes('password')"
                   class="help is-danger"
                 >{{ validation[keys.indexOf('password')] }}</p>
               </div>
@@ -55,12 +53,7 @@
 </template>
 
 <script>
-// import Error from "../components/Error";
 export default {
-  // components: {
-  //   Error
-  // },
-
   data() {
     return {
       form: {
