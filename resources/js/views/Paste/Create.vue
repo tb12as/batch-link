@@ -25,6 +25,21 @@
                   >{{ errorValues[keys.indexOf('title')] }}</p>
                 </div>
               </div>
+
+              <div class="field">
+                <div class="select" :class="{'is-danger' : keys.includes('privacy')}">
+                  <select v-model="form.privacy">
+                    <option disabled value>Privacy</option>
+                    <option value="private">Private</option>
+                    <option value="public">Public</option>
+                  </select>
+
+                  <p
+                    v-if="keys.includes('privacy')"
+                    class="help is-danger"
+                  >{{ errorValues[keys.indexOf('privacy')] }}</p>
+                </div>
+              </div>
             </form>
           </div>
         </div>
@@ -123,6 +138,7 @@ export default {
       errors: [],
       form: {
         title: "",
+        privacy: "",
         links: []
       },
       links: {

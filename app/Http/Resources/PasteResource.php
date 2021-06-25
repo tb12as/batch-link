@@ -19,6 +19,7 @@ class PasteResource extends JsonResource
         return [
             'title' => $this->title,
             'slug' => $this->slug,
+            'privacy' => $this->privacy,
             'links' => LinkResource::collection($this->whenLoaded('links')),
         ];
     }

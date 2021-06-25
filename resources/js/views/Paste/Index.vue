@@ -16,6 +16,7 @@
                   <tr>
                     <th>#</th>
                     <th>Paste Title</th>
+                    <th>Privacy</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -31,6 +32,7 @@
                   <tr v-for="(paste, i) in pastes.data" :key="i">
                     <td>{{ i+1 }}</td>
                     <td>{{ paste.title }}</td>
+                    <td>{{ paste.privacy }}</td>
                     <td>
                       <button
                         class="button is-danger is-small m-1"

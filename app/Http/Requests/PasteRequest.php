@@ -26,6 +26,7 @@ class PasteRequest extends FormRequest
         return [
             'title' => 'required',
             'links' => 'array|required|min:1',
+            'privacy' => 'required',
             'links.*.title' => 'required|string',
             'links.*.original_link' => 'required|url',
         ];
