@@ -12,6 +12,8 @@
           <div class="content">
             <p v-if="paste.links.length < 1">This paste doesn't have any link</p>
 
+            <p>{{ paste.description }}</p>
+            
             <table border="0">
               <tbody>
                 <tr v-for="(link, i) in paste.links" :key="i">

@@ -1,5 +1,5 @@
-import { Store } from "vuex";
 import axios from "../../api";
+import router from "../../router";
 
 const paste = {
   namespaced: true,
@@ -24,9 +24,11 @@ const paste = {
     },
 
     pushNew(state, value) {
-      state.pastes.data.reverse();
-      state.pastes.data.push(value);
-      state.pastes.data.reverse();
+      if (state.pastes.data.length > 0) {
+        state.pastes.data.reverse();
+        state.pastes.data.push(value);
+        state.pastes.data.reverse();
+      }
     },
 
     deletePaste(state, slug) {
@@ -68,6 +70,7 @@ const paste = {
     async save({ commit }, form) {
       await axios.post("/api/paste/", form).then(res => {
         commit("pushNew", res.data);
+        router.push({ name: "paste.index" });
       });
     },
 

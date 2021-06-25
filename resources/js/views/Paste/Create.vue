@@ -27,6 +27,16 @@
               </div>
 
               <div class="field">
+                <label for="desc">Description</label>
+                <textarea
+                  id="desc"
+                  v-model="form.description"
+                  class="textarea"
+                  placeholder="Description (optional)"
+                ></textarea>
+              </div>
+
+              <div class="field">
                 <div class="select" :class="{'is-danger' : keys.includes('privacy')}">
                   <select v-model="form.privacy">
                     <option disabled value>Privacy</option>
@@ -139,6 +149,7 @@ export default {
       form: {
         title: "",
         privacy: "",
+        description: "",
         links: []
       },
       links: {
@@ -197,16 +208,11 @@ export default {
 
     save() {
       if (this.form.title) {
-        this.$store
-          .dispatch("paste/save", this.form)
-          .then(() => {
-            this.$router.push({ name: "paste.index" });
-          })
-          .catch(err => {
-            if (err.response.status == 422) {
-              this.errors = err.response.data.errors;
-            }
-          });
+        this.$store.dispatch("paste/save", this.form).catch(err => {
+          if (err.response.status == 422) {
+            this.errors = err.response.data.errors;
+          }
+        });
       } else {
         this.errors = { title: "The title field is required" };
       }

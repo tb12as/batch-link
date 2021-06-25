@@ -29,6 +29,16 @@
               </div>
 
               <div class="field">
+                <label for="desc">Description</label>
+                <textarea
+                  id="desc"
+                  v-model="form.description"
+                  class="textarea"
+                  placeholder="Description (optional)"
+                ></textarea>
+              </div>
+
+              <div class="field">
                 <div class="select" :class="{'is-danger' : keys.includes('privacy')}">
                   <select v-model="form.privacy">
                     <option disabled value>Privacy</option>
@@ -141,6 +151,7 @@ export default {
         title: "",
         slug: "",
         privacy: "",
+        description: "",
         links: []
       },
       links: {

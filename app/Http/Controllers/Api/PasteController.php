@@ -28,6 +28,7 @@ class PasteController extends Controller
         $paste = Paste::create([
             'user_id' => Auth::id(),
             'title' => $request->title,
+            'description' => $request->description,
             'privacy' => $request->privacy,
             'slug' => Str::slug(Str::words($request->title, 3, '') . '-' . uniqid()),
         ]);
@@ -48,6 +49,7 @@ class PasteController extends Controller
     {
         $paste->update([
             'title' => $request->title,
+            'description' => $request->description,
             'privacy' => $request->privacy,
             'slug' => Str::slug(Str::words($request->title, 3, '') . '-' . uniqid()),
         ]);
