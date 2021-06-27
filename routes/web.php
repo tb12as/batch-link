@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\PasteController;
 use App\Http\Controllers\RedirectController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,8 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-
-Route::get('/r/{hash}', [RedirectController::class, 'redirectView']);
+Route::get('/r/{hash}', [RedirectController::class, 'redirectView'])->name('redirect');
 Route::get('get-link/{hash}', [RedirectController::class, 'getOriginalLink'])->name('link.get');
+
+Route::prefix('batch-links')->group(function () {
+    Route::get('/', [PasteController::class, 'index']);
+    Route::post('/viewed/{id}', [PasteController::class, 'addViewedCount'])->name('viewedCount');
+    Route::get('/{slug}', [PasteController::class, 'show'])->name('batch.show');
+});
 
 Route::view('{any}', 'app')->where('any', '.*');

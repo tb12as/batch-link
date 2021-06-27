@@ -26,7 +26,8 @@ class PasteFactory extends Factory
         return [
             'user_id' => 1,
             'title' => $title,
-            'slug' => Str::slug($title .'-'. uniqid())
+            'privacy' => 'public',
+            'slug' => Str::slug($title . '-' . uniqid())
         ];
     }
 }
