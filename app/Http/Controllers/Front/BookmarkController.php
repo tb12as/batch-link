@@ -18,20 +18,14 @@ class BookmarkController extends Controller
     {
         $data = Auth::user()->bookmarks()->get();
 
-        $popular = Paste::with('user')
-            ->where('privacy', 'public')
-            ->where('viewed_count', '>=', 10)
-            ->orderBy('viewed_count', 'desc')
-            ->get()
-            ->take(3);
+        $pastes = Paste::where('privacy', 'public')->latest()->get();
 
         $bookmarkIds = null;
-
         if (auth()->user()) {
             $bookmarkIds = auth()->user()->bookmarks()->pluck('paste_id')->toArray();
         }
 
-        return view('front.bookmark', compact('data', 'popular', 'bookmarkIds'));
+        return view('front.bookmark', compact('data', 'pastes', 'bookmarkIds'));
 
     }
 

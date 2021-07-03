@@ -47,7 +47,7 @@
             <div class="column">
                 <h3 class="has-text-weight-bold m-2 is-size-5 ml-4">Latest Public Batch</h3>
 
-                @foreach ($popular as $index => $paste)
+                @foreach ($pastes as $index => $paste)
                     <div class="card m-1">
                         <div class="card-content">
                             <div class="content">
