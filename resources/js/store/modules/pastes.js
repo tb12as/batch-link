@@ -24,7 +24,7 @@ const paste = {
     },
 
     pushNew(state, value) {
-      if (state.pastes.data.length > 0) {
+      if (state.pastes.data) {
         state.pastes.data.reverse();
         state.pastes.data.push(value);
         state.pastes.data.reverse();
