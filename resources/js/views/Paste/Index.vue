@@ -3,7 +3,7 @@
     <div class="column m-1 mt-4">
       <div class="card">
         <div class="card-header">
-          <p class="card-header-title">Your Paste</p>
+          <p class="card-header-title">Your Batch</p>
         </div>
 
         <delete-modal :slug="selectedSlug" :showed="deleteMode" @cencelOrDeleted="unselect"></delete-modal>
@@ -17,6 +17,7 @@
                     <th>#</th>
                     <th>Paste Title</th>
                     <th>Privacy</th>
+                    <th>Visited Count</th>
                     <th>Action</th>
                   </tr>
                 </thead>
@@ -33,6 +34,7 @@
                     <td>{{ i+1 }}</td>
                     <td>{{ paste.title }}</td>
                     <td>{{ paste.privacy }}</td>
+                    <td>{{ paste.visited_count }}</td>
                     <td>
                       <button
                         class="button is-danger is-small m-1"
@@ -69,7 +71,7 @@
                 class="pagination-next"
                 @click.prevent="paginateOnChange(pastes.links.next)"
                 :disabled="!pastes.links.next"
-              >Next page</a>
+              >Next</a>
 
               <ul class="pagination-list">
                 <li v-for="(link, i) in pastes.meta.links.slice(1, -1)" :key="i">
@@ -109,7 +111,7 @@ export default {
   },
 
   created() {
-    document.title = "Paste";
+    document.title = "Your Batch";
     this.$store.commit("setNotFound", false);
   },
 
