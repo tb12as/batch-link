@@ -36,7 +36,7 @@ const routes = [
   },
   {
     name: "paste.index",
-    path: "/paste",
+    path: "/my-batch",
     component: PasteIndex,
     meta: {
       requiresAuth: true
@@ -44,7 +44,7 @@ const routes = [
   },
   {
     name: "paste.show",
-    path: "/paste/:slug/d",
+    path: "/my-batch/:slug/d",
     component: PasteDetail,
     meta: {
       requiresAuth: true
@@ -52,7 +52,7 @@ const routes = [
   },
   {
     name: "paste.create",
-    path: "/paste/create",
+    path: "/my-batch/create",
     component: PasteCreate,
     meta: {
       requiresAuth: true
@@ -60,7 +60,7 @@ const routes = [
   },
   {
     name: "paste.edit",
-    path: "/paste/:slug/edit",
+    path: "/my-batch/:slug/edit",
     component: PasteEdit,
     meta: {
       requiresAuth: true
@@ -79,8 +79,7 @@ router.beforeEach((to, from, next) => {
     // if not, redirect to login page.
     if (!auth.state.status) {
       next({
-        path: "/login",
-        query: { redirect: "/paste" }
+        path: "/login"
       });
     } else {
       next();
@@ -88,7 +87,7 @@ router.beforeEach((to, from, next) => {
   } else if (to.matched.some(record => record.meta.loginPage)) {
     if (auth.state.status) {
       next({
-        path: "/paste"
+        name: "paste.index"
       });
     } else {
       next();

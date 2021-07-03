@@ -7,7 +7,7 @@
   >
     <div class="navbar-brand m-1">
       <a class="navbar-item" href="https://bulma.io">
-        <h5 class="has-text-weight-bold">Paste Links</h5>
+        <h5 class="has-text-weight-bold">Batch Links</h5>
       </a>
 
       <a
@@ -26,18 +26,25 @@
     </div>
 
     <div id="navbarBasicExample" class="navbar-menu m-1" :class="{'is-active' : open}">
-      <div class="navbar-start" v-if="authStatus">
-        <router-link
-          class="navbar-item"
-          @click.native="openOrClose"
-          :to="{name: 'paste.index'}"
-        >Paste</router-link>
+      <div class="navbar-start">
+        <a :href="`${appUrl}batch-links`" class="navbar-item">Public Batch</a>
+        <div class="navbar-item has-dropdown is-hoverable" v-if="authStatus">
+          <a class="navbar-link">Your Batch</a>
 
-        <router-link
-          class="navbar-item"
-          @click.native="openOrClose"
-          :to="{name: 'paste.create'}"
-        >Paste Create</router-link>
+          <div class="navbar-dropdown">
+            <router-link
+              class="navbar-item"
+              @click.native="openOrClose"
+              :to="{name: 'paste.index'}"
+            >All Batch</router-link>
+
+            <router-link
+              class="navbar-item"
+              @click.native="openOrClose"
+              :to="{name: 'paste.create'}"
+            >New Batch</router-link>
+          </div>
+        </div>
       </div>
 
       <div class="navbar-end">
@@ -108,6 +115,10 @@ export default {
 
     isNotFound() {
       return this.$store.state.isNotFound;
+    },
+
+    appUrl() {
+      return this.$store.state.appUrl;
     }
   }
 };

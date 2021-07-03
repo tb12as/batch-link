@@ -3,19 +3,19 @@
     <div class="column is-half mt-4">
       <div class="card">
         <div class="card-header">
-          <p class="card-header-title">Paste Create</p>
+          <p class="card-header-title">Batch Create</p>
         </div>
 
         <div class="card-content">
           <div class="content">
             <form @submit.prevent="save">
               <div class="field">
-                <label class="label">Paste Title</label>
+                <label class="label">Batch Title</label>
                 <div class="control">
                   <input
                     class="input m-1"
                     type="text"
-                    placeholder="Paste Title"
+                    placeholder="Batch Title"
                     v-model="form.title"
                     :class="{'is-danger' : keys.includes('title')}"
                   />
@@ -27,7 +27,7 @@
               </div>
 
               <div class="field">
-                <label for="desc">Description</label>
+                <label for="desc" class="label">Description</label>
                 <textarea
                   id="desc"
                   v-model="form.description"
@@ -59,7 +59,7 @@
     <div class="column is-half mt-4">
       <div class="card">
         <div class="card-header">
-          <p class="card-header-title">Paste Create</p>
+          <p class="card-header-title">Links</p>
         </div>
 
         <div class="card-content">
@@ -99,7 +99,7 @@
             </table>
 
             <div class="field">
-              <label class="label">Paste Links</label>
+              <label class="label">Batch Links</label>
               <div class="control">
                 <input class="input m-1" type="text" placeholder="Link Title" v-model="links.title" />
 
@@ -137,7 +137,7 @@
 <script>
 export default {
   created() {
-    document.title = "Paste Create";
+    document.title = "New Batch";
   },
 
   data() {

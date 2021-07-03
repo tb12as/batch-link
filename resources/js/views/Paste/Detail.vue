@@ -10,10 +10,14 @@
         </header>
         <div class="card-content">
           <div class="content">
-            <p v-if="paste.links.length < 1">This paste doesn't have any link</p>
+            <article class="message is-primary" v-if="paste.links.length < 1">
+              <div class="message-body">
+                <p>This paste doesn't have any link</p>
+              </div>
+            </article>
 
             <p>{{ paste.description }}</p>
-            
+
             <table border="0">
               <tbody>
                 <tr v-for="(link, i) in paste.links" :key="i">
@@ -73,7 +77,7 @@ export default {
   },
 
   created() {
-    document.title = "Paste Detail";
+    document.title = "Batch Detail";
     this.$store.commit("setPasteNotFound", false);
   },
 

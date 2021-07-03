@@ -5,19 +5,19 @@
     <div class="column is-half mt-4" v-if="! pasteNotFound && ! load">
       <div class="card">
         <div class="card-header">
-          <p class="card-header-title">Paste Edit</p>
+          <p class="card-header-title">Batch Edit</p>
         </div>
 
         <div class="card-content">
           <div class="content">
             <form @submit.prevent="save">
               <div class="field">
-                <label class="label">Paste Title</label>
+                <label class="label">Batch Title</label>
                 <div class="control">
                   <input
                     class="input m-1"
                     type="text"
-                    placeholder="Paste Title"
+                    placeholder="Batch Title"
                     v-model="form.title"
                     :class="{'is-danger' : keys.includes('title')}"
                   />
@@ -61,7 +61,7 @@
     <div class="column is-half mt-4" v-if="! pasteNotFound && ! load">
       <div class="card">
         <div class="card-header">
-          <p class="card-header-title">Paste Links Edit</p>
+          <p class="card-header-title">Links Edit</p>
         </div>
 
         <div class="card-content">
@@ -101,7 +101,7 @@
             </table>
 
             <div class="field">
-              <label class="label">Paste Links</label>
+              <label class="label">Add / Edit Links</label>
               <div class="control">
                 <input class="input m-1" type="text" placeholder="Link Title" v-model="links.title" />
 
@@ -162,7 +162,7 @@ export default {
   },
 
   created() {
-    document.title = "Paste Create";
+    document.title = "Batch Edit";
     this.getPaste();
     this.$store.commit("setPasteNotFound", false);
   },
