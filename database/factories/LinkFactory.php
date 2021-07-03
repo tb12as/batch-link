@@ -25,7 +25,7 @@ class LinkFactory extends Factory
             'user_id' => 1,
             'title' => $this->faker->sentence(4),
             'hash' => md5(microtime()),
-            'original_link' => $this->faker->url,
+            'original_link' => $this->faker->url(),
         ];
     }
 }
