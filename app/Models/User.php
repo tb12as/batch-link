@@ -53,4 +53,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(Link::class);
     }
+
+    public function bookmarks()
+    {
+        return $this->belongsToMany(Paste::class, 'bookmarks')
+            ->withTimestamps()
+            ->orderByPivot('created_at', 'desc');
+    }
 }

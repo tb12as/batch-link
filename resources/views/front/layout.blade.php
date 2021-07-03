@@ -9,7 +9,14 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    
+
+    <style>
+        .container {
+            /* margin: 20px 2%; */
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -31,13 +38,17 @@
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
                 <a class="navbar-item" href="{{ url('/batch-links') }}">
-                    Home
+                    Public Batch
                 </a>
 
                 @auth
-                <a class="navbar-item" href="{{ url('/paste') }}">
-                    Dashboard
-                </a>
+                    <a class="navbar-item" href="{{ url('/my-batch') }}">
+                        Your Batch
+                    </a>
+
+                    <a class="navbar-item" href="{{ route('bookmarks.index') }}">
+                        Bookmarks
+                    </a>
                 @endauth
             </div>
 
@@ -72,8 +83,45 @@
         </div>
     </nav>
 
-    @yield('content')
+    <div class="container">
+        @yield('content')
+    </div>
 
+    <script>
+        function post(url, data = null) {
+            return new Promise((resolve, reject) => {
+                const req = new XMLHttpRequest();
+                req.open('POST', url);
+                req.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]')
+                    .getAttribute(
+                        'content'));
+                req.onload = () => req.status === 200 ?
+                    resolve(req.response) :
+                    reject(Error(req.statusText));
+
+                req.onerror = (e) => reject(Error(`Network Error: ${e}`));
+                req.send(data);
+
+            });
+        }
+
+        function get(url) {
+            return new Promise((resolve, reject) => {
+                const req = new XMLHttpRequest();
+                req.open('GET', url);
+                req.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]')
+                    .getAttribute(
+                        'content'));
+                req.onload = () => req.status === 200 ?
+                    resolve(req.response) :
+                    reject(Error(req.statusText));
+
+                req.onerror = (e) => reject(Error(`Network Error: ${e}`));
+                req.send();
+
+            });
+        }
+    </script>
     @yield('script')
 </body>
 

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Front\BookmarkController;
 use App\Http\Controllers\Front\PasteController;
 use App\Http\Controllers\RedirectController;
 use Illuminate\Support\Facades\Route;
@@ -27,5 +28,7 @@ Route::prefix('batch-links')->group(function () {
     Route::post('/viewed/{id}', [PasteController::class, 'addViewedCount'])->name('viewedCount');
     Route::get('/{slug}', [PasteController::class, 'show'])->name('batch.show');
 });
+
+Route::resource('bookmarks', BookmarkController::class)->only(['index', 'store' ,'destroy']);
 
 Route::view('{any}', 'app')->where('any', '.*');

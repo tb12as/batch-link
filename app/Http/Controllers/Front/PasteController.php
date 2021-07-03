@@ -17,8 +17,14 @@ class PasteController extends Controller
             ->orderBy('viewed_count', 'desc')
             ->get()
             ->take(3);
-        
-        return view('front.paste-index', compact('data', 'popular'));
+
+        $bookmarkIds = null;
+
+        if (auth()->user()) {
+            $bookmarkIds = auth()->user()->bookmarks()->pluck('paste_id')->toArray();
+        }
+
+        return view('front.paste-index', compact('data', 'popular', 'bookmarkIds'));
     }
 
     public function show($slug)
@@ -28,7 +34,7 @@ class PasteController extends Controller
 
         return view('front.paste-detail', compact('paste', 'data'));
     }
-    
+
 
     public function addViewedCount($id)
     {

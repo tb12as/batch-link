@@ -3,13 +3,13 @@
 @section('title', $paste->title)
 
 @section('content')
-    <div class="container">
+    <div class="container content">
         <div class="columns">
             <div class="column is-three-quarters">
                 <div class="card">
                     <div class="card-content">
                         <div class="content">
-                            <h1>{{ $paste->title }}</h1>
+                            <h2>{{ $paste->title }}</h2>
                             <p>by {{ $paste->user->name }}</p>
                             <p> {{ $paste->description }}</p>
                             <p class="is-size-7">{{ $paste->created_at }}</p>
@@ -21,42 +21,44 @@
                             <hr>
 
                             <table class="table is-bordered">
-                                <tr>
-                                    <th>No</th>
+                                <tr class="has-text-centered">
+                                    <th width="80">No</th>
                                     <th>Link Title</th>
-                                    <th>Actoin</th>
+                                    <th width="200">Action</th>
                                 </tr>
-                                @foreach ($paste->links as $link)
+                                @forelse ($paste->links as $link)
                                     <tr>
-                                        <td>{{ $loop->iteration }}</td>
+                                        <td class="has-text-centered">{{ $loop->iteration }}</td>
                                         <td>{{ $link->title }}</td>
-                                        <td>
+                                        <td class="has-text-centered">
                                             <a href="{{ route('redirect', $link->hash) }}"
                                                 class="button is-small is-primary" target="blank">Visit</a>
                                         </td>
                                     </tr>
-                                @endforeach
+                                    @empty
+                                    <tr>
+                                        <td colspan="3" class="has-text-centered">This paste doesn't have any links</td>
+                                    </tr>
+                                @endforelse
                             </table>
-
                         </div>
                     </div>
                 </div>
             </div>
             <div class="column">
-                <h4 class="has-text-weight-bold m-2">Latest Public Paste</h4>
-
+                <h3 class="has-text-weight-bold m-2 is-size-5 ml-4">Latest Public Batch</h3>
                 @php
                     $slug = $paste->slug;
                     $paste_id = $paste->id;
                 @endphp
-
                 @foreach ($data as $index => $paste)
                     <a href="{{ route('batch.show', $paste->slug) }}">
                         <div class="card m-1 {{ $paste->slug === $slug ? 'has-background-primary has-text-light' : '' }}">
                             <div class="card-content">
                                 <div class="content">
                                     <p class="has-text-weight-semibold">{{ $paste->title }}</p>
-                                    <p class="is-size-7">Viewed <span class="{{ $paste->slug === $slug ? 'counter' : '' }}">{{ $paste->viewed_count }}</span>
+                                    <p class="is-size-7">Viewed <span
+                                            class="{{ $paste->slug === $slug ? 'counter' : '' }}">{{ $paste->viewed_count }}</span>
                                         times</p>
                                 </div>
                             </div>
@@ -74,22 +76,6 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const counters = document.querySelectorAll('.counter');
-
-            function post(url) {
-                return new Promise((resolve, reject) => {
-                    const req = new XMLHttpRequest();
-                    req.open('POST', url);
-                    req.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]')
-                        .getAttribute(
-                            'content'));
-                    req.onload = () => req.status === 200 ?
-                        resolve(req.response) :
-                        reject(Error(req.statusText));
-
-                    req.onerror = (e) => reject(Error(`Network Error: ${e}`));
-                    req.send();
-                });
-            }
 
             post('{{ route('viewedCount', $paste_id) }}')
                 .then(res => {

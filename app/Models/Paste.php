@@ -27,4 +27,9 @@ class Paste extends Model
         return Carbon::parse($this->attributes['created_at'])
             ->translatedFormat('l, d M Y - H:i:s') . " (" . Carbon::parse($this->attributes['created_at'])->diffForHumans() . ")";
     }
+
+    public function bookmarkedBy()
+    {
+        return $this->belongsToMany(User::class, 'bookmarks');
+    }
 }
