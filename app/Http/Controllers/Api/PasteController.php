@@ -51,7 +51,7 @@ class PasteController extends Controller
             'title' => $request->title,
             'description' => $request->description,
             'privacy' => $request->privacy,
-            'slug' => Str::slug(Str::words($request->title, 3, '') . '-' . uniqid()),
+            'slug' => $paste->title !== $request->title ? Str::slug(Str::words($request->title, 3, '') . '-' . uniqid()) : $paste->slug,
         ]);
 
         return $this->storeLinks($request->links, $paste);
