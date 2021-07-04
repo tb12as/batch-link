@@ -10,7 +10,7 @@ class PasteController extends Controller
 {
     public function index()
     {
-        $data = Paste::where('privacy', 'public')->latest('id')->get();
+        $data = Paste::where('privacy', 'public')->latest()->get();
 
         $popular = Paste::where('privacy', 'public')
             ->where('viewed_count', '>=', 10)
@@ -34,7 +34,6 @@ class PasteController extends Controller
 
         return view('front.paste-detail', compact('paste', 'data'));
     }
-
 
     public function addViewedCount($id)
     {

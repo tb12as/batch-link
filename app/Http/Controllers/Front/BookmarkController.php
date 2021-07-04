@@ -21,7 +21,7 @@ class BookmarkController extends Controller
         $pastes = Paste::select(['title', 'viewed_count', 'slug', 'user_id'])
           ->with('user')
           ->where('privacy', 'public')
-          ->latest('id')
+          ->latest()
           ->take(5)
           ->get();
 
