@@ -2,14 +2,14 @@
   <div :class="{'columns' : !pasteNotFound}">
     <NotFound v-if="pasteNotFound" />
 
-    <div class="column m-1 mt-5" v-if="! load && !pasteNotFound">
-      <modal-delete :showed="showModal" :slug="paste.slug" @cencelOrDeleted="toggleModal"></modal-delete>
+    <div class="column" v-if="! load && !pasteNotFound">
       <div class="card">
-        <header class="card-header">
-          <p class="card-header-title">{{ paste.title }}</p>
-        </header>
         <div class="card-content">
           <div class="content">
+            <modal-delete :showed="showModal" :slug="paste.slug" @cencelOrDeleted="toggleModal"></modal-delete>
+
+            <h2>{{ paste.title }}</h2>
+
             <article class="message is-primary" v-if="paste.links.length < 1">
               <div class="message-body">
                 <p>This paste doesn't have any link</p>
@@ -18,27 +18,29 @@
 
             <p>{{ paste.description }}</p>
 
-            <table border="0">
+            <table class="table is-bordered" v-if="paste.links.length > 0">
+              <thead class="has-text-centered">
+                <tr>
+                  <th width="80">No</th>
+                  <th>Link Title</th>
+                  <th width="300">Action</th>
+                </tr>
+              </thead>
               <tbody>
                 <tr v-for="(link, i) in paste.links" :key="i">
-                  <td>
-                    <b>{{ link.title }}</b>
-                  </td>
-                  <td>
-                    {{ link.original_link.length > 50 ? link.original_link.slice(0, 50) + "..." : link.original_link }}
-                    <span
-                      class="tag"
-                    >{{ link.hash }}</span>
-                  </td>
-                  <td>
+                  <td class="has-text-centered">{{ i+1 }}</td>
+                  <td>{{ link.title }}</td>
+                  <td class="has-text-centered">
                     <a
-                      class="button is-small is-link is-light m-1"
+                      class="button is-small is-success m-1"
                       target="blank"
                       :href="`${appUrl}r/${link.hash}`"
                     >Test Redirect</a>
+
                     <a
-                      class="button is-small is-link is-light m-1"
+                      class="button is-small is-primary m-1"
                       target="blank"
+                      v-if="paste.privacy === 'public'"
                       :href="link.original_link"
                     >Test Original Link</a>
                   </td>

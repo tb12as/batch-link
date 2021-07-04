@@ -9,14 +9,6 @@
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
-    <style>
-        .container {
-            /* margin: 20px 2%; */
-            margin-top: 20px;
-            margin-bottom: 20px;
-        }
-    </style>
 </head>
 
 <body>
@@ -83,7 +75,7 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container my-5">
         @yield('content')
     </div>
 

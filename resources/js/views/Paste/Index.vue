@@ -2,40 +2,37 @@
   <div class="columns" v-if="! load">
     <div class="column m-1 mt-4">
       <div class="card">
-        <div class="card-header">
-          <p class="card-header-title">Your Batch</p>
-        </div>
-
         <delete-modal :slug="selectedSlug" :showed="deleteMode" @cencelOrDeleted="unselect"></delete-modal>
 
         <div class="card-content">
           <div class="content">
+            <h2>Your Batch</h2>
             <div class="table-container">
               <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                 <thead>
-                  <tr>
-                    <th>#</th>
+                  <tr class="has-text-centered mx-auto">
+                    <th width="80">#</th>
                     <th>Paste Title</th>
-                    <th>Privacy</th>
-                    <th>Visited Count</th>
-                    <th>Action</th>
+                    <th width="110">Privacy</th>
+                    <th width="100">Visited</th>
+                    <th width="300">Action</th>
                   </tr>
                 </thead>
 
                 <tbody>
                   <tr v-if="pastes.data.length < 1">
-                    <td colspan="3" class="has-text-centered">
+                    <td colspan="5" class="has-text-centered">
                       You don't have any paste yet, create one
                       <router-link :to="{name: 'paste.create'}">here</router-link>
                     </td>
                   </tr>
 
                   <tr v-for="(paste, i) in pastes.data" :key="i">
-                    <td>{{ i+1 }}</td>
+                    <td class="has-text-centered">{{ i+1 }}</td>
                     <td>{{ paste.title }}</td>
                     <td>{{ paste.privacy }}</td>
-                    <td>{{ paste.visited_count }}</td>
-                    <td>
+                    <td>{{ (paste.visited_count || 0) + (paste.visited_count > 1 ? " times" : " time") }}</td>
+                    <td class="has-text-centered">
                       <button
                         class="button is-danger is-small m-1"
                         @click="selectDel(paste.slug)"

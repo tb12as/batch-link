@@ -5,7 +5,7 @@
     aria-label="main navigation"
     v-if="! isNotFound"
   >
-    <div class="navbar-brand m-1">
+    <div class="navbar-brand">
       <a class="navbar-item" href="https://bulma.io">
         <h5 class="has-text-weight-bold">Batch Links</h5>
       </a>
@@ -25,7 +25,7 @@
       </a>
     </div>
 
-    <div id="navbarBasicExample" class="navbar-menu m-1" :class="{'is-active' : open}">
+    <div id="navbarBasicExample" class="navbar-menu" :class="{'is-active' : open}">
       <div class="navbar-start">
         <a :href="`${appUrl}batch-links`" class="navbar-item">Public Batch</a>
         <div class="navbar-item has-dropdown is-hoverable" v-if="authStatus">

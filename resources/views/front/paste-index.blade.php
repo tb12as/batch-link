@@ -3,9 +3,9 @@
 @section('title', 'Batch Link')
 
 @section('content')
-    <div class="container content">
+    <div class="content">
         <div class="columns is-multiline">
-            <div class="column is-two-thirds is-fullheight">
+            <div class="column {{ count($popular) > 0 ? 'is-two-thirds' : '' }} is-fullheight">
                 <div class="card">
                     <div class="card-content">
                         <div class="content">
@@ -36,6 +36,7 @@
                     </div>
                 </div>
             </div>
+            @if(count($popular) > 0)
             <div class="column">
                 <h3 class="has-text-weight-bold m-2 ml-4 is-size-5">Popular Batch</h3>
 
@@ -45,7 +46,7 @@
                             <div class="content">
                                 <a href="{{ route('batch.show', $paste->slug) }}"
                                     class="has-text-weight-semibold has-text-dark">
-                                    {{ $paste->title }}
+                                    {{ Str::limit($paste->title, 30, '...') }}
                                 </a>
 
                                 <p class="is-size-7">Viewed {{ $paste->viewed_count }} times</p>
@@ -61,9 +62,11 @@
                 @break($index >= 5)
                 @endforeach
             </div>
+            @endif
         </div>
     </div>
 
+    @if(count($data) > 0)
     <div class="container content">
         <h3 class="has-text-weight-bold m-2 is-size-5 ml-4">Latest Public Batch</h3>
         <div class="columns is-multiline">
@@ -74,7 +77,7 @@
                             <div class="content">
                                 <a href="{{ route('batch.show', $paste->slug) }}"
                                     class="has-text-dark has-text-weight-semibold">
-                                    {{ $paste->title }}
+                                    {{ Str::limit($paste->title, 30, '...') }}
                                 </a>
 
                                 <p class="is-size-7">Viewed {{ $paste->viewed_count }} times</p>
@@ -92,6 +95,7 @@
             @endforeach
         </div>
     </div>
+    @endif
 @endsection
 
 @section('script')

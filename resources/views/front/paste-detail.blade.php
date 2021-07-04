@@ -3,7 +3,7 @@
 @section('title', $paste->title)
 
 @section('content')
-    <div class="container content">
+    <div class="content">
         <div class="columns">
             <div class="column is-three-quarters">
                 <div class="card">
@@ -35,7 +35,7 @@
                                                 class="button is-small is-primary" target="blank">Visit</a>
                                         </td>
                                     </tr>
-                                    @empty
+                                @empty
                                     <tr>
                                         <td colspan="3" class="has-text-centered">This paste doesn't have any links</td>
                                     </tr>
@@ -56,7 +56,9 @@
                         <div class="card m-1 {{ $paste->slug === $slug ? 'has-background-primary has-text-light' : '' }}">
                             <div class="card-content">
                                 <div class="content">
-                                    <p class="has-text-weight-semibold">{{ $paste->title }}</p>
+                                    <p class="has-text-weight-semibold">
+                                        {{ Str::limit($paste->title, 30, '...') }}
+                                    </p>
                                     <p class="is-size-7">Viewed <span
                                             class="{{ $paste->slug === $slug ? 'counter' : '' }}">{{ $paste->viewed_count }}</span>
                                         times</p>
