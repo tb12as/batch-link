@@ -29,10 +29,20 @@ class PasteController extends Controller
 
     public function show($slug)
     {
-        $data = Paste::where('privacy', 'public')->latest()->get();
+        $data = Paste::where('privacy', 'public')
+            ->where('slug', '!=', $slug)
+            ->latest()
+            ->get();
+
         $paste = Paste::with('links')->where('slug', $slug)->firstOrFail();
 
-        return view('front.paste-detail', compact('paste', 'data'));
+        $bookmarkIds = null;
+
+        if (auth()->user()) {
+            $bookmarkIds = auth()->user()->bookmarks()->pluck('paste_id')->toArray();
+        }
+
+        return view('front.paste-detail', compact('paste', 'data', 'bookmarkIds'));
     }
 
     public function addViewedCount($id)

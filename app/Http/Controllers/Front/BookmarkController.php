@@ -18,7 +18,7 @@ class BookmarkController extends Controller
     {
         $data = Auth::user()->bookmarks()->get();
 
-        $pastes = Paste::select(['title', 'viewed_count', 'slug', 'user_id'])
+        $pastes = Paste::select(['id', 'title', 'viewed_count', 'slug', 'user_id'])
           ->with('user')
           ->where('privacy', 'public')
           ->latest()

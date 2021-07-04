@@ -83,7 +83,7 @@
         function post(url, data = null) {
             return new Promise((resolve, reject) => {
                 const req = new XMLHttpRequest();
-                req.open('POST', url);
+                req.open('POST', url, true);
                 req.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]')
                     .getAttribute(
                         'content'));
@@ -100,7 +100,7 @@
         function get(url) {
             return new Promise((resolve, reject) => {
                 const req = new XMLHttpRequest();
-                req.open('GET', url);
+                req.open('GET', url, true);
                 req.setRequestHeader('X-CSRF-TOKEN', document.querySelector('meta[name="csrf-token"]')
                     .getAttribute(
                         'content'));
@@ -113,6 +113,38 @@
 
             });
         }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            document.addEventListener('click', (e) => {
+                const target = e.target;
+
+                if (target.classList.contains('bookmarkBtn')) {
+                    const paste_id = target.getAttribute('paste-id');
+                    const btns = document.querySelectorAll(`button[paste-id="${paste_id}"]`);
+
+                    let formData = new FormData;
+                    formData.append('paste_id', paste_id);
+
+                    post('{{ route('bookmarks.store') }}', formData).then(res => {
+                            if (target.classList.contains('is-light')) {
+                                btns.forEach(val => {
+                                    val.innerText = 'Bookmarked';
+                                    val.classList.toggle('is-light');
+                                })
+                            } else {
+                                btns.forEach(val => {
+                                    val.innerText = 'Add to Bookmark';
+                                    val.classList.toggle('is-light');
+                                })
+                            }
+
+                        })
+                        .catch(err => {
+                            console.log(err);
+                        })
+                }
+            });
+        });
     </script>
     @yield('script')
 </body>

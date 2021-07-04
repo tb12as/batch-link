@@ -97,39 +97,3 @@
     </div>
     @endif
 @endsection
-
-@section('script')
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            document.addEventListener('click', (e) => {
-                const target = e.target;
-
-                if (target.classList.contains('bookmarkBtn')) {
-                    const paste_id = target.getAttribute('paste-id');
-                    const btns = document.querySelectorAll(`button[paste-id="${paste_id}"]`);
-
-                    let formData = new FormData;
-                    formData.append('paste_id', paste_id);
-
-                    post('{{ route('bookmarks.store') }}', formData).then(res => {
-                            if (target.classList.contains('is-light')) {
-                                btns.forEach(val => {
-                                    val.innerText = 'Bookmarked';
-                                    val.classList.toggle('is-light');
-                                })
-                            } else {
-                                btns.forEach(val => {
-                                    val.innerText = 'Add to Bookmark';
-                                    val.classList.toggle('is-light');
-                                })
-                            }
-
-                        })
-                        .catch(err => {
-                            console.log(err);
-                        })
-                }
-            });
-        });
-    </script>
-@endsection

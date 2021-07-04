@@ -52,20 +52,27 @@
                     $paste_id = $paste->id;
                 @endphp
                 @foreach ($data as $index => $paste)
-                    <a href="{{ route('batch.show', $paste->slug) }}">
-                        <div class="card m-1 {{ $paste->slug === $slug ? 'has-background-primary has-text-light' : '' }}">
-                            <div class="card-content">
-                                <div class="content">
-                                    <p class="has-text-weight-semibold">
-                                        {{ Str::limit($paste->title, 30, '...') }}
-                                    </p>
-                                    <p class="is-size-7">Viewed <span
-                                            class="{{ $paste->slug === $slug ? 'counter' : '' }}">{{ $paste->viewed_count }}</span>
-                                        times</p>
-                                </div>
+                    <div class="card m-1">
+                        <div class="card-content">
+                            <div class="content">
+                                <a href="{{ route('batch.show', $paste->slug) }}"
+                                    class="has-text-dark has-text-weight-semibold">
+                                    {{ Str::limit($paste->title, 30, '...') }}
+                                </a>
+
+                                <p class="is-size-7">Viewed <span
+                                        class="{{ $paste->slug === $slug ? 'counter' : '' }}">{{ $paste->viewed_count }}</span>
+                                    times</p>
+                                @auth
+                                    <button class="bookmarkBtn button is-small is-primary @if (!in_array($paste->id, $bookmarkIds)) is-light @endif"
+                                        paste-id="{{ $paste->id }}">
+                                        {{ in_array($paste->id, $bookmarkIds) ? 'Bookmarked' : 'Add to Bookmark' }}
+                                    </button>
+                                @endauth
+
                             </div>
                         </div>
-                    </a>
+                    </div>
                 @break($index >= 5)
                 @endforeach
             </div>
