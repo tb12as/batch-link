@@ -33,6 +33,7 @@ export default {
     sendDelete() {
       this.$store.dispatch("paste/delete", this.slug).then(() => {
         this.$emit("cencelOrDeleted");
+        this.$emit("resetSearchQuery");
         if (this.$router.history.current.name == "paste.show") {
           this.$router.push({ name: "paste.index" });
         }

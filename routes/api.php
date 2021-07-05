@@ -30,6 +30,7 @@ Route::middleware('auth:sanctum')->group(function () {
         ]);
     });
 
+    Route::get('paste/search/', [PasteController::class, 'search']);
     Route::apiResource('paste', PasteController::class)
         ->parameter('paste', 'paste:slug');
 

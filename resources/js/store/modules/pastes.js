@@ -97,6 +97,13 @@ const paste = {
           dispatch("paginateOnChange", `t?${state.pageNow}`);
         }
       });
+    },
+
+    async search({ commit }, query) {
+      await axios.get("/api/paste/search/?q=" + query).then(res => {
+        commit("setPaste", res.data);
+        commit("setNeedLoad", true);
+      });
     }
   }
 };

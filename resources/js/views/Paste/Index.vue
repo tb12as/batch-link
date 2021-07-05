@@ -2,11 +2,30 @@
   <div class="columns" v-if="! load">
     <div class="column m-1 mt-4">
       <div class="card">
-        <delete-modal :slug="selectedSlug" :showed="deleteMode" @cencelOrDeleted="unselect"></delete-modal>
+        <delete-modal
+          :slug="selectedSlug"
+          :showed="deleteMode"
+          @cencelOrDeleted="unselect"
+          @resetSearchQuery="resetSearchQuery"
+        ></delete-modal>
 
         <div class="card-content">
           <div class="content">
-            <h2>Your Batch</h2>
+            <div class="is-flex is-justify-content-space-between my-3 mx-2 is-flex-wrap-wrap">
+              <h2>Your Batch</h2>
+              <form @submit.prevent="sendSearch">
+                <div class="field is-half">
+                  <div class="control">
+                    <input
+                      class="input m-1"
+                      type="search"
+                      placeholder="Search"
+                      v-model="searchQuery"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
             <div class="table-container">
               <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                 <thead>
@@ -20,11 +39,18 @@
                 </thead>
 
                 <tbody>
-                  <tr v-if="pastes.data.length < 1">
+                  <tr v-if="pastes.data.length < 1 && !searchMode">
                     <td colspan="5" class="has-text-centered">
                       You don't have any paste yet, create one
                       <router-link :to="{name: 'paste.create'}">here</router-link>
                     </td>
+                  </tr>
+
+                  <tr v-if="pastes.data.length < 1 && searchMode">
+                    <td
+                      colspan="5"
+                      class="has-text-centered"
+                    >Can't find anything with query {{ this.searchQuery }}</td>
                   </tr>
 
                   <tr v-for="(paste, i) in pastes.data" :key="i">
@@ -99,7 +125,9 @@ export default {
     return {
       load: true,
       deleteMode: false,
-      selectedSlug: ""
+      selectedSlug: "",
+      searchQuery: "",
+      searchMode: false
     };
   },
 
@@ -122,6 +150,15 @@ export default {
     }
   },
 
+  watch: {
+    searchQuery() {
+      if (this.searchQuery.length == 0) {
+        this.$store.dispatch("paste/get");
+        this.searchMode = false;
+      }
+    }
+  },
+
   methods: {
     getPastes() {
       this.$store.dispatch("paste/get").then(() => {
@@ -139,9 +176,20 @@ export default {
       this.deleteMode = false;
     },
 
+    resetSearchQuery() {
+      this.searchQuery = "";
+    },
+
     paginateOnChange(url, isActive) {
       if (!isActive) {
         this.$store.dispatch("paste/paginateOnChange", url);
+      }
+    },
+
+    sendSearch() {
+      if (this.sendSearch && this.searchQuery.length > 0) {
+        this.searchMode = true;
+        this.$store.dispatch("paste/search", this.searchQuery);
       }
     }
   }

@@ -64,6 +64,26 @@ class PasteController extends Controller
         return response()->json(['message' => 'Paste deleted']);
     }
 
+    public function search(Request $request)
+    {
+        if ($q = $request->q) {
+            $pastes = Paste::where("title", "like", "%$q%")
+                ->orWhere("privacy", "like", "%$q%")
+                ->orWhere("viewed_count", "like", "%$q%")
+                ->latest()
+                ->get();
+
+            return [
+                'data' => PasteResource::collection($pastes),
+                'meta' => [
+                    'links' => [],
+                ]
+            ];
+        }
+
+        return "you shouldn't send an empty string here dude";
+    }
+
     private function storeLinks(array $links, Paste $paste)
     {
         foreach ($links as $link) {
