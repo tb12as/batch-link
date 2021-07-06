@@ -115,6 +115,9 @@
         }
 
         document.addEventListener('DOMContentLoaded', () => {
+            const navbarMenu = document.querySelector('.navbar-menu');
+            const navbarBurger = document.querySelector('.navbar-burger');
+
             document.addEventListener('click', (e) => {
                 const target = e.target;
 
@@ -141,7 +144,11 @@
                         })
                         .catch(err => {
                             console.log(err);
-                        })
+                        });
+
+                } else if (target.classList.contains('navbar-burger')) {
+                    navbarMenu.classList.toggle('is-active');
+                    navbarBurger.classList.toggle('is-active');
                 }
             });
         });
