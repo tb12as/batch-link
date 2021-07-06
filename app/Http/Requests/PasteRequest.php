@@ -24,9 +24,10 @@ class PasteRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => 'required',
+            'title' => 'required|max:200',
             'links' => 'array|required|min:1',
             'privacy' => 'required',
+            'description' => 'max:300',
             'links.*.title' => 'required|string',
             'links.*.original_link' => 'required|url',
         ];
