@@ -9,7 +9,7 @@
                 <div class="card">
                     <div class="card-content">
                         <div class="content">
-                            <h2>{{ $paste->title }}</h2>
+                            <h2 class="break-word">{{ $paste->title }}</h2>
                             <p>by {{ $paste->user->name }}</p>
                             <p> {{ $paste->description }}</p>
                             <p class="is-size-7">{{ $paste->created_at }}</p>

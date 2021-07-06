@@ -75,15 +75,14 @@
             <table border="0">
               <tbody>
                 <tr>
-                  <td colspan="3" class="has-text-centered">
-                    <b>{{ form.title }}</b>
-                  </td>
+                  <td
+                    colspan="3"
+                    class="has-text-centered break-word has-text-weight-bold"
+                  >{{ form.title }}</td>
                 </tr>
-                <tr v-for="(link, i) in form.links" :key="i">
-                  <td>
-                    <b>{{ link.title }}</b>
-                  </td>
-                  <td>{{ link.original_link.length > 50 ? link.original_link.slice(0, 50) + "..." : link.original_link }}</td>
+                <tr v-for="(link, i) in form.links" :key="i" class="break-word">
+                  <td class="has-text-weight-bold break-word">{{ link.title }}</td>
+                  <td class="break-word">{{ link.original_link }}</td>
                   <td>
                     <button
                       class="button is-danger is-small m-1"

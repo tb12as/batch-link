@@ -4,6 +4,7 @@
       <div class="card">
         <delete-modal
           :slug="selectedSlug"
+          :title="selectedTitle"
           :showed="deleteMode"
           @cencelOrDeleted="unselect"
           @resetSearchQuery="resetSearchQuery"
@@ -55,13 +56,13 @@
 
                   <tr v-for="(paste, i) in pastes.data" :key="i">
                     <td class="has-text-centered">{{ i+1 }}</td>
-                    <td>{{ paste.title }}</td>
+                    <td class="break-word">{{ paste.title }}</td>
                     <td>{{ paste.privacy }}</td>
                     <td>{{ (paste.visited_count || 0) + (paste.visited_count > 1 ? " times" : " time") }}</td>
                     <td class="has-text-centered">
                       <button
                         class="button is-danger is-small m-1"
-                        @click="selectDel(paste.slug)"
+                        @click="selectDel(paste.slug, paste.title)"
                       >Delete</button>
                       <router-link
                         class="button is-link is-small m-1"
@@ -126,6 +127,7 @@ export default {
       load: true,
       deleteMode: false,
       selectedSlug: "",
+      selectedTitle: "",
       searchQuery: "",
       searchMode: false
     };
@@ -166,13 +168,16 @@ export default {
       });
     },
 
-    selectDel(slug) {
+    selectDel(slug, title) {
       this.selectedSlug = slug;
+      this.selectedTitle = title;
+
       this.deleteMode = true;
     },
 
     unselect() {
       this.selectedSlug = "";
+      this.selectedTitle = "";
       this.deleteMode = false;
     },
 

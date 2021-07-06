@@ -8,7 +8,7 @@
           <div class="content">
             <modal-delete :showed="showModal" :slug="paste.slug" @cencelOrDeleted="toggleModal"></modal-delete>
 
-            <h2>{{ paste.title }}</h2>
+            <h2 class="break-word">{{ paste.title }}</h2>
 
             <article class="message is-primary" v-if="paste.links.length < 1">
               <div class="message-body">

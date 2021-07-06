@@ -3,7 +3,7 @@
     <div class="modal-background" @click.prevent="cencel"></div>
     <div class="modal-card">
       <header class="modal-card-head">
-        <p class="modal-card-title">Delete Paste?</p>
+        <p class="modal-card-title">Delete this Batch?</p>
         <button class="delete" aria-label="close" @click.prevent="cencel"></button>
       </header>
       <section class="modal-card-body">
@@ -13,6 +13,7 @@
             <strong>cannot</strong> be undone!
           </div>
         </article>
+        <p>This batch will be deleted : <i>{{ this.title }}</i></p>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-danger" @click.prevent="sendDelete">Delete</button>
@@ -26,7 +27,8 @@
 export default {
   props: {
     showed: Boolean,
-    slug: String
+    slug: String,
+    title: String,
   },
 
   methods: {
