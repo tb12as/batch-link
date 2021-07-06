@@ -6,7 +6,12 @@
       <div class="card">
         <div class="card-content">
           <div class="content">
-            <modal-delete :showed="showModal" :slug="paste.slug" @cencelOrDeleted="toggleModal"></modal-delete>
+            <modal-delete
+              :showed="showModal"
+              :slug="paste.slug"
+              :title="paste.title"
+              @cencelOrDeleted="toggleModal"
+            ></modal-delete>
 
             <h2 class="break-word">{{ paste.title }}</h2>
 
