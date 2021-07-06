@@ -23,77 +23,78 @@
                                         account</a> / <a href="{{ url('login') }}"> login</a> first.
                                 @endguest</p>
 
-                            <p>How to Create</p>
+                            <hr>
+                            <p>Here's the rule :</p>
                             <ol>
-                                <li>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Magni, obcaecati.</li>
-                                <li>Lorem ipsum s. Colpa ea possimus exercitationem illum quibusdam autem assumenda
-                                    distinctio vel nostrum aliquam.</li>
-                                <li>Lorem, ipsum r sit amet consectetur adipisicing elit. Consequuntur aut hic esse.</li>
-                                <li>Lorem, ipisicing elit. Consequuntur aut hic esse.</li>
-                                <li>Lorem, ipsum dol. Consequuntur aut hic esse.</li>
+                                @guest
+                                    <li>First, you have to have an account.</li>
+                                @endguest
+                                <li>You can make as many batches as you want.</li>
+                                <li>As a reminder, a batch must have at least one link.</li>
+                                <li>Then, you can choose the privacy of the batch you create. (public / private)</li>
                             </ol>
                         </div>
                     </div>
                 </div>
             </div>
-            @if(count($popular) > 0)
-            <div class="column">
-                <h3 class="has-text-weight-bold m-2 ml-4 is-size-5">Popular Batch</h3>
+            @if (count($popular) > 0)
+                <div class="column">
+                    <h3 class="has-text-weight-bold m-2 ml-4 is-size-5">Popular Batch</h3>
 
-                @foreach ($popular as $index => $paste)
-                    <div class="card m-1">
-                        <div class="card-content">
-                            <div class="content">
-                                <a href="{{ route('batch.show', $paste->slug) }}"
-                                    class="has-text-weight-semibold has-text-dark">
-                                    {{ Str::limit($paste->title, 30, '...') }}
-                                </a>
+                    @foreach ($popular as $index => $paste)
+                        <div class="card m-1">
+                            <div class="card-content">
+                                <div class="content">
+                                    <a href="{{ route('batch.show', $paste->slug) }}"
+                                        class="has-text-weight-semibold has-text-dark">
+                                        {{ Str::limit($paste->title, 30, '...') }}
+                                    </a>
 
-                                <p class="is-size-7">Viewed {{ $paste->viewed_count }} times</p>
-                                @auth
-                                    <button class="bookmarkBtn button is-small is-primary @if (!in_array($paste->id, $bookmarkIds)) is-light @endif"
-                                        paste-id="{{ $paste->id }}">
-                                        {{ in_array($paste->id, $bookmarkIds) ? 'Bookmarked' : 'Add to Bookmark' }}
-                                    </button>
-                                @endauth
+                                    <p class="is-size-7">Viewed {{ $paste->viewed_count }} times</p>
+                                    @auth
+                                        <button class="bookmarkBtn button is-small is-primary @if (!in_array($paste->id, $bookmarkIds)) is-light @endif"
+                                            paste-id="{{ $paste->id }}">
+                                            {{ in_array($paste->id, $bookmarkIds) ? 'Bookmarked' : 'Add to Bookmark' }}
+                                        </button>
+                                    @endauth
+                                </div>
                             </div>
                         </div>
-                    </div>
-                @break($index >= 5)
-                @endforeach
-            </div>
-            @endif
-        </div>
-    </div>
-
-    @if(count($data) > 0)
-    <div class="container content">
-        <h3 class="has-text-weight-bold m-2 is-size-5 ml-4">Latest Public Batch</h3>
-        <div class="columns is-multiline">
-            @foreach ($data as $index => $paste)
-                <div class="column is-one-third">
-                    <div class="card m-1">
-                        <div class="card-content">
-                            <div class="content">
-                                <a href="{{ route('batch.show', $paste->slug) }}"
-                                    class="has-text-dark has-text-weight-semibold">
-                                    {{ Str::limit($paste->title, 30, '...') }}
-                                </a>
-
-                                <p class="is-size-7">Viewed {{ $paste->viewed_count }} times</p>
-                                @auth
-                                    <button class="bookmarkBtn button is-small is-primary @if (!in_array($paste->id, $bookmarkIds)) is-light @endif"
-                                        paste-id="{{ $paste->id }}">
-                                        {{ in_array($paste->id, $bookmarkIds) ? 'Bookmarked' : 'Add to Bookmark' }}
-                                    </button>
-                                @endauth
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- @break($index >= 5) --}}
+                    @break($index >= 5)
             @endforeach
         </div>
+        @endif
     </div>
+    </div>
+
+    @if (count($data) > 0)
+        <div class="container content">
+            <h3 class="has-text-weight-bold m-2 is-size-5 ml-4">Latest Public Batch</h3>
+            <div class="columns is-multiline">
+                @foreach ($data as $index => $paste)
+                    <div class="column is-one-third">
+                        <div class="card m-1">
+                            <div class="card-content">
+                                <div class="content">
+                                    <a href="{{ route('batch.show', $paste->slug) }}"
+                                        class="has-text-dark has-text-weight-semibold">
+                                        {{ Str::limit($paste->title, 30, '...') }}
+                                    </a>
+
+                                    <p class="is-size-7">Viewed {{ $paste->viewed_count }} times</p>
+                                    @auth
+                                        <button class="bookmarkBtn button is-small is-primary @if (!in_array($paste->id, $bookmarkIds)) is-light @endif"
+                                            paste-id="{{ $paste->id }}">
+                                            {{ in_array($paste->id, $bookmarkIds) ? 'Bookmarked' : 'Add to Bookmark' }}
+                                        </button>
+                                    @endauth
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{-- @break($index >= 5) --}}
+                @endforeach
+            </div>
+        </div>
     @endif
 @endsection
