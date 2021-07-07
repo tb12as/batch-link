@@ -16,7 +16,7 @@
     <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <a class="navbar-item" href="{{ url('/') }}">
-                <h5 class="has-text-weight-bold">Batch Link</h5>
+                <h5 class="has-text-weight-bold">Batch Links</h5>
             </a>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
@@ -34,9 +34,21 @@
                 </a>
 
                 @auth
-                    <a class="navbar-item" href="{{ url('/my-batch') }}">
-                        Your Batch
-                    </a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link">
+                            Your Batch
+                        </a>
+
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item" href="{{ url('/my-batch') }}">
+                                All Batches
+                            </a>
+
+                            <a class="navbar-item" href="{{ url('/my-batch/create') }}">
+                                New Batch
+                            </a>
+                        </div>
+                    </div>
 
                     <a class="navbar-item" href="{{ route('bookmarks.index') }}">
                         Bookmarks
@@ -62,7 +74,7 @@
                 @guest
                     <div class="navbar-item">
                         <div class="buttons">
-                            <a class="button is-primary" href="{{ url('/register') }}">
+                            <a class="button is-primary" href="{{ url('/sign-up') }}">
                                 <strong>Sign up</strong>
                             </a>
                             <a class="button is-light" href="{{ url('/login') }}">

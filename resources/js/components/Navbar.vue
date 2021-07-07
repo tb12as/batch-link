@@ -28,6 +28,7 @@
     <div id="navbarBasicExample" class="navbar-menu" :class="{'is-active' : open}">
       <div class="navbar-start">
         <a :href="`${appUrl}batch-links`" class="navbar-item">Public Batch</a>
+        
         <div class="navbar-item has-dropdown is-hoverable" v-if="authStatus">
           <a class="navbar-link">Your Batch</a>
 
@@ -36,7 +37,7 @@
               class="navbar-item"
               @click.native="openOrClose"
               :to="{name: 'paste.index'}"
-            >All Batch</router-link>
+            >All Batches</router-link>
 
             <router-link
               class="navbar-item"
@@ -45,6 +46,8 @@
             >New Batch</router-link>
           </div>
         </div>
+
+        <a :href="`${appUrl}bookmarks`" class="navbar-item">Bookmarks</a>
       </div>
 
       <div class="navbar-end">

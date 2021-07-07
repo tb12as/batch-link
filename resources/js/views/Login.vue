@@ -3,13 +3,16 @@
     <div class="column is-half card">
       <div class="card-content">
         <div class="content">
+          <h2 class="has-text-centered">Login</h2>
+          <p class="has-text-centered">Please login to proceed.</p>
+          <hr />
+
           <form @submit.prevent="login">
             <div class="field">
-              <label class="label" for="email">Email</label>
               <div class="control">
                 <input
                   id="email"
-                  class="input"
+                  class="input p-4"
                   type="email"
                   placeholder="Your Email"
                   v-model="form.email"
@@ -23,11 +26,10 @@
             </div>
 
             <div class="field">
-              <label class="label" for="password">Password</label>
               <div class="control">
                 <input
                   id="password"
-                  class="input"
+                  class="input p-3"
                   type="password"
                   placeholder="Password"
                   v-model="form.password"
@@ -42,7 +44,7 @@
 
             <div class="field is-grouped">
               <div class="control">
-                <button type="submit" class="button is-sm is-link">Login</button>
+                <button type="submit" class="button is-sm is-primary">Login</button>
               </div>
             </div>
           </form>

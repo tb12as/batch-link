@@ -3,13 +3,16 @@
     <div class="column is-half card">
       <div class="card-content">
         <div class="content">
+          <h2 class="has-text-centered">Sign Up</h2>
+          <p class="has-text-centered">Join us now</p>
+          <hr />
+
           <form @submit.prevent="register">
             <div class="field">
-              <label class="label" for="name">Name</label>
               <div class="control">
                 <input
                   id="name"
-                  class="input"
+                  class="input p-4"
                   type="text"
                   placeholder="Your Name"
                   v-model="form.name"
@@ -23,11 +26,10 @@
             </div>
 
             <div class="field">
-              <label class="label" for="email">Email</label>
               <div class="control">
                 <input
                   id="email"
-                  class="input"
+                  class="input p-4"
                   type="email"
                   placeholder="Your Email"
                   v-model="form.email"
@@ -41,11 +43,10 @@
             </div>
 
             <div class="field">
-              <label class="label" for="password">Password</label>
               <div class="control">
                 <input
                   id="password"
-                  class="input"
+                  class="input p-4"
                   type="password"
                   placeholder="Password"
                   v-model="form.password"
@@ -59,11 +60,10 @@
             </div>
 
             <div class="field">
-              <label class="label" for="password_c">Password Confirmation</label>
               <div class="control">
                 <input
                   id="password_c"
-                  class="input"
+                  class="input p-4"
                   type="password"
                   placeholder="Password Confirmation"
                   v-model="form.password_confirmation"
@@ -78,7 +78,7 @@
 
             <div class="field is-grouped">
               <div class="control">
-                <button type="submit" class="button is-sm is-link">Sign Up</button>
+                <button type="submit" class="button is-sm is-primary">Sign Up</button>
               </div>
             </div>
           </form>
