@@ -47,7 +47,7 @@
           </div>
         </div>
 
-        <a :href="`${appUrl}bookmarks`" class="navbar-item">Bookmarks</a>
+        <a v-if="authStatus" :href="`${appUrl}bookmarks`" class="navbar-item">Bookmarks</a>
       </div>
 
       <div class="navbar-end">
