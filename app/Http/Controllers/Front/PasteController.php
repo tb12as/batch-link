@@ -12,17 +12,10 @@ class PasteController extends Controller
     {
         $data = Paste::where('privacy', 'public')->latest()->get();
 
-        $popular = Paste::where('privacy', 'public')
-            ->where('viewed_count', '>=', 10)
-            ->orderBy('viewed_count', 'desc')
-            ->get()
-            ->take(3);
+        $vars = $this->popularAndBookmarkIds();
 
-        $bookmarkIds = null;
-
-        if (auth()->user()) {
-            $bookmarkIds = auth()->user()->bookmarks()->pluck('paste_id')->toArray();
-        }
+        $popular = $vars['popular'];
+        $bookmarkIds = $vars['bookmarkIds'];
 
         return view('front.paste-index', compact('data', 'popular', 'bookmarkIds'));
     }
@@ -34,7 +27,10 @@ class PasteController extends Controller
             ->latest()
             ->get();
 
-        $paste = Paste::with('links')->where('slug', $slug)->firstOrFail();
+        $paste = Paste::with('links')
+            ->where('privacy', 'public')
+            ->where('slug', $slug)
+            ->firstOrFail();
 
         $bookmarkIds = null;
 
@@ -52,5 +48,44 @@ class PasteController extends Controller
         $paste->save();
 
         return $paste->viewed_count;
+    }
+
+    public function search(Request $request)
+    {
+        if ($q = $request->q) {
+            $vars = $this->popularAndBookmarkIds();
+
+            $popular = $vars['popular'];
+            $bookmarkIds = $vars['bookmarkIds'];
+
+            $data = Paste::where("title", "like", "%$q%")
+                ->where('privacy', 'public')
+                ->latest()
+                ->get();
+
+            return view('front.paste-index', compact('data', 'popular', 'bookmarkIds'));
+        }
+
+        return redirect()->route('batch.index');
+    }
+
+    private function popularAndBookmarkIds()
+    {
+        $popular = Paste::where('privacy', 'public')
+            ->where('viewed_count', '>=', 10)
+            ->orderBy('viewed_count', 'desc')
+            ->get()
+            ->take(3);
+
+        $bookmarkIds = null;
+
+        if (auth()->user()) {
+            $bookmarkIds = auth()->user()->bookmarks()->pluck('paste_id')->toArray();
+        }
+
+        return [
+            'popular' => $popular,
+            'bookmarkIds' => $bookmarkIds,
+        ];
     }
 }

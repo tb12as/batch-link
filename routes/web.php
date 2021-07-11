@@ -24,9 +24,10 @@ Route::get('/r/{hash}', [RedirectController::class, 'redirectView'])->name('redi
 Route::get('get-link/{hash}', [RedirectController::class, 'getOriginalLink'])->name('link.get');
 
 Route::prefix('batch-links')->group(function () {
-    Route::get('/', [PasteController::class, 'index']);
+    Route::get('/', [PasteController::class, 'index'])->name('batch.index');
     Route::post('/viewed/{id}', [PasteController::class, 'addViewedCount'])->name('viewedCount');
-    Route::get('/{slug}', [PasteController::class, 'show'])->name('batch.show');
+    Route::get('/{slug}/d', [PasteController::class, 'show'])->name('batch.show');
+    Route::get('/search', [PasteController::class, 'search'])->name('batch.search');
 });
 
 Route::resource('bookmarks', BookmarkController::class)->only(['index', 'store' ,'destroy']);

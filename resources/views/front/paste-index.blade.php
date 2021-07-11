@@ -67,34 +67,54 @@
     </div>
     </div>
 
-    @if (count($data) > 0)
-        <div class="container content">
-            <h3 class="has-text-weight-bold m-2 is-size-5 ml-4">Latest Public Batch</h3>
-            <div class="columns is-multiline">
-                @foreach ($data as $index => $paste)
-                    <div class="column is-one-third">
-                        <div class="card m-1">
-                            <div class="card-content">
-                                <div class="content">
-                                    <a href="{{ route('batch.show', $paste->slug) }}"
-                                        class="has-text-dark has-text-weight-semibold">
-                                        {{ Str::limit($paste->title, 30, '...') }}
-                                    </a>
+    <div class="container content">
+        <div class="is-flex is-justify-content-space-between my-3 mx-2 is-flex-wrap-wrap">
+            <h3 class="has-text-weight-bold m-2 is-size-5 ml-4">
+                {{ Request::get('q') ? 'Search Result' : 'Latest Public Batch' }}</h3>
 
-                                    <p class="is-size-7">Viewed {{ $paste->viewed_count }} times</p>
-                                    @auth
-                                        <button class="bookmarkBtn button is-small is-primary @if (!in_array($paste->id, $bookmarkIds)) is-light @endif"
-                                            paste-id="{{ $paste->id }}">
-                                            {{ in_array($paste->id, $bookmarkIds) ? 'Bookmarked' : 'Add to Bookmark' }}
-                                        </button>
-                                    @endauth
-                                </div>
+            <form action="{{ route('batch.search') }}" method="get">
+                <div class="field is-half mx-2">
+                    <div class="control">
+                        <input class="input m-1" type="search" value="{{ Request::get('q') ?? '' }}" placeholder="Search"
+                            name="q" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div class="columns is-multiline">
+            @forelse ($data as $index => $paste)
+                <div class="column is-one-third">
+                    <div class="card m-1">
+                        <div class="card-content">
+                            <div class="content">
+                                <a href="{{ route('batch.show', $paste->slug) }}"
+                                    class="has-text-dark has-text-weight-semibold">
+                                    {{ Str::limit($paste->title, 30, '...') }}
+                                </a>
+
+                                <p class="is-size-7">Viewed {{ $paste->viewed_count }} times</p>
+                                @auth
+                                    <button class="bookmarkBtn button is-small is-primary @if (!in_array($paste->id, $bookmarkIds)) is-light @endif"
+                                        paste-id="{{ $paste->id }}">
+                                        {{ in_array($paste->id, $bookmarkIds) ? 'Bookmarked' : 'Add to Bookmark' }}
+                                    </button>
+                                @endauth
                             </div>
                         </div>
                     </div>
-                    {{-- @break($index >= 5) --}}
-                @endforeach
-            </div>
+                </div>
+            @empty
+                <div class="column is-full">
+                    <div class="card">
+                        <div class="card-content">
+                            <div class="content">
+                                {{ Request::get('q') ? "Can't find any batch with query " . Request::get('q') : 'Nothing to show' }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            @endforelse
         </div>
-    @endif
+    </div>
 @endsection
