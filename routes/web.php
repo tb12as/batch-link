@@ -20,6 +20,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/login', fn() => view('app'))->name('login');
+
 Route::get('/r/{hash}', [RedirectController::class, 'redirectView'])->name('redirect');
 Route::get('get-link/{hash}', [RedirectController::class, 'getOriginalLink'])->name('link.get');
 
@@ -30,6 +32,8 @@ Route::prefix('batch-links')->group(function () {
     Route::get('/search', [PasteController::class, 'search'])->name('batch.search');
 });
 
-Route::resource('bookmarks', BookmarkController::class)->only(['index', 'store' ,'destroy']);
+Route::resource('bookmarks', BookmarkController::class)
+    ->middleware('auth')
+    ->only(['index', 'store' ,'destroy']);
 
 Route::view('{any}', 'app')->where('any', '.*');
