@@ -18,9 +18,9 @@ class RedirectController extends Controller
         }
     }
 
-    public function getOriginalLink($hash): string
+    public function getOriginalLink($hash)
     {
         $link = Link::where('hash', $hash)->firstOrFail();
-        return $link->original_link;
+        return response()->json($link->original_link);
     }
 }
