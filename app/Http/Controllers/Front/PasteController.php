@@ -47,7 +47,7 @@ class PasteController extends Controller
         $paste->viewed_count = $paste->viewed_count + 1;
         $paste->save();
 
-        return $paste->viewed_count;
+        return response()->json($paste->viewed_count);
     }
 
     public function search(Request $request)
