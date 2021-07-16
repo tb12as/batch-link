@@ -98,44 +98,59 @@
               </tbody>
             </table>
 
-            <div class="field">
-              <label class="label">Add / Edit Links</label>
-              <div class="control">
-                <input class="input m-1" type="text" placeholder="Link Title" v-model="links.title" />
+            <form @submit.prevent="pushLink">
+              <div class="field">
+                <label class="label">Add / Edit Links</label>
+                <div class="control">
+                  <input
+                    class="input m-1"
+                    type="text"
+                    placeholder="Link Title"
+                    v-model="links.title"
+                    required
+                  />
 
-                <input
-                  class="input m-1"
-                  type="text"
-                  placeholder="https://yourlink.com/..."
-                  v-model="links.original_link"
-                />
+                  <input
+                    class="input m-1"
+                    type="url"
+                    placeholder="https://yourlink.com/..."
+                    v-model="links.original_link"
+                    required
+                  />
+                </div>
               </div>
-            </div>
 
-            <div class="field">
-              <button
-                type="button"
-                class="button is-small m-1 is-light"
-                :class="{'is-warning' : editLinkMode, 'is-primary': !editLinkMode}"
-                @click.prevent="pushLink"
-              >{{ editLinkMode ? 'Edit' : 'Add' }} Link</button>
+              <div class="field">
+                <button
+                  type="submit"
+                  class="button is-small m-1 is-light"
+                  :class="{'is-warning' : editLinkMode, 'is-primary': !editLinkMode}"
+                >{{ editLinkMode ? 'Edit' : 'Add' }} Link</button>
 
-              <button
-                v-if="canSave"
-                class="button is-primary is-small m-1"
-                type="button"
-                @click.prevent="save"
-              >Update</button>
-            </div>
+                <button
+                  v-if="canSave"
+                  class="button is-primary is-small m-1"
+                  type="button"
+                  @click.prevent="save"
+                >Update</button>
+              </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
+    <modal-edit
+      :showed="editLinkMode"
+      :link="links"
+      @closeModal="resetEditMode"
+      @linkChanged="pushLink"
+    ></modal-edit>
   </div>
 </template>
 
 <script>
 import NotFound from "../PasteNotFound.vue";
+import ModalEdit from "../../components/ModalEditPaste.vue";
 
 export default {
   data() {
@@ -193,6 +208,10 @@ export default {
 
       this.canSave = true;
 
+      this.resetEditMode();
+    },
+
+    resetEditMode() {
       this.links.title = "";
       this.links.original_link = "";
 
@@ -245,7 +264,8 @@ export default {
   },
 
   components: {
-    NotFound
+    NotFound,
+    ModalEdit
   },
 
   computed: {
