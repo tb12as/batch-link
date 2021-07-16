@@ -21,6 +21,8 @@
                         <h2>Redirect</h2>
                         <hr>
                         <noscript>If this page don't do anything, I think you should turn on your JavaScript </noscript>
+
+                        <progress class="progress is-success" value="0" id="progress" max="100">60%</progress>
                         <p id="message"></p>
                     </div>
                 </div>
@@ -61,25 +63,34 @@
     }
 
     ready(() => {
+        const message = document.getElementById('message');
+        const progress = document.getElementById('progress');
+
         axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
         axios.get(`{{ route('link.get', $link->hash) }}`)
             .then(res => {
-                const message = document.getElementById('message');
-                let time = 5;
+                const countDown = 5;
+                let time = countDown;
+
                 message.innerHTML = 'Auto redirect in 5 second';
 
-                setTimeout(() => {
-                    showRedirectButton(res.data);
-                    setInterval(() => {
+                    let countId = setInterval(() => {
                         if (time == 0) {
+                            progress.value = 100;
+
                             redirect(res.data);
+                            clearInterval(countId);
                         } else {
+                            progress.value = (countDown - time) / 5 * 100;
                             time--;
                         }
+                        
+                        if(time == 2) {
+                            showRedirectButton(res.data);
+                        } 
                         message.innerHTML = `Auto redirect in ${time} second`;
                     }, 1000);
-                }, 500);
             })
             .catch(err => {
                 console.log(err);
