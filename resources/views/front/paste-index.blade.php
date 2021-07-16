@@ -76,7 +76,7 @@
                 <div class="field is-half mx-2">
                     <div class="control">
                         <input class="input m-1" type="search" value="{{ Request::get('q') ?? '' }}" placeholder="Search"
-                            name="q" />
+                            name="q" autocomplete="off" />
                     </div>
                 </div>
             </form>
