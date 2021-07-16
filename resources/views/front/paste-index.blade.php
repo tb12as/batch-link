@@ -116,5 +116,6 @@
                 </div>
             @endforelse
         </div>
+        {{ $data->links('pagination.bulma') }}
     </div>
 @endsection

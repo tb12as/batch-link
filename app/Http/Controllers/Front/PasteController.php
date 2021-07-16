@@ -10,8 +10,11 @@ class PasteController extends Controller
 {
     public function index()
     {
-        $data = Paste::where('privacy', 'public')->latest()->get();
-
+        $data = Paste::where('privacy', 'public')
+            ->latest()
+            ->paginate(12)
+            ->onEachSide(1);
+        
         $vars = $this->popularAndBookmarkIds();
 
         $popular = $vars['popular'];
@@ -61,7 +64,10 @@ class PasteController extends Controller
             $data = Paste::where("title", "like", "%$q%")
                 ->where('privacy', 'public')
                 ->latest()
-                ->get();
+                ->paginate(12)
+                ->onEachSide(1);
+
+            $data->appends(['q' => $q]);
 
             return view('front.paste-index', compact('data', 'popular', 'bookmarkIds'));
         }
