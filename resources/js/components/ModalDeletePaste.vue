@@ -9,11 +9,15 @@
       <section class="modal-card-body">
         <article class="message is-danger">
           <div class="message-body">
-            This action
+            <p>
+              This batch will be deleted :
+              <i>
+                <b>{{ this.title }}</b>
+              </i>
+            </p>This action
             <strong>cannot</strong> be undone!
           </div>
         </article>
-        <p>This batch will be deleted : <i>{{ this.title }}</i></p>
       </section>
       <footer class="modal-card-foot">
         <button class="button is-danger" @click.prevent="sendDelete">Delete</button>
@@ -28,7 +32,7 @@ export default {
   props: {
     showed: Boolean,
     slug: String,
-    title: String,
+    title: String
   },
 
   methods: {
