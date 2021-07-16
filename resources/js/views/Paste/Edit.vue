@@ -150,7 +150,7 @@
 
 <script>
 import NotFound from "../PasteNotFound.vue";
-import ModalEdit from "../../components/ModalEditPaste.vue";
+import ModalEdit from "../../components/ModalEditLink.vue";
 
 export default {
   data() {

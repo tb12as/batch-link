@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import ModalEdit from "../../components/ModalEditPaste.vue";
+import ModalEdit from "../../components/ModalEditLink.vue";
 export default {
   created() {
     document.title = "New Batch";
