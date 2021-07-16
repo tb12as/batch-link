@@ -87,7 +87,7 @@
                   <td>
                     <button
                       class="button is-danger is-small m-1"
-                      @click.prevent="deleteLink(i, link.hash || null)"
+                      @click.prevent="showModalDeleteLink(i, form.links[i] || null)"
                     >Delete</button>
 
                     <button class="button is-warning is-small m-1" @click.prevent="editLink(i)">Edit</button>
@@ -145,12 +145,20 @@
       @closeModal="resetEditMode"
       @linkChanged="pushLink"
     ></modal-edit>
+
+    <modal-delete-link
+      :showed="deleteMode"
+      :link="selectedToDelete"
+      @sendDelete="deleteLink(selectedIndexDelete, selectedToDelete.hash)"
+      @cencel="hideModalDeleteLink"
+    ></modal-delete-link>
   </div>
 </template>
 
 <script>
 import NotFound from "../PasteNotFound.vue";
 import ModalEdit from "../../components/ModalEditLink.vue";
+import ModalDeleteLink from "../../components/ModalDeleteLink.vue";
 
 export default {
   data() {
@@ -160,6 +168,9 @@ export default {
       editingIndex: null,
       canSave: false,
       errors: [],
+      deleteMode: false,
+      selectedToDelete: {},
+      selectedIndexDelete: null,
       form: {
         title: "",
         slug: "",
@@ -219,15 +230,27 @@ export default {
       this.editingIndex = null;
     },
 
+    showModalDeleteLink(i, data) {
+      this.deleteMode = true;
+      this.selectedIndexDelete = i;
+      this.selectedToDelete = { ...data };
+    },
+
+    hideModalDeleteLink() {
+      this.deleteMode = false;
+       this.selectedIndexDelete = null;
+      this.selectedToDelete = {};
+    },
+
     deleteLink(index, hash) {
-      if (hash && confirm("Delete this link? This action cannot be undone")) {
+      if (hash) {
         this.$store.dispatch("link/delete", hash).then(() => {
           this.deleteLinkFromData(index);
+          this.hideModalDeleteLink();
         });
-      }
-
-      if (!hash) {
+      } else {
         this.deleteLinkFromData(index);
+        this.hideModalDeleteLink();
       }
     },
 
@@ -265,7 +288,8 @@ export default {
 
   components: {
     NotFound,
-    ModalEdit
+    ModalEdit,
+    ModalDeleteLink
   },
 
   computed: {
