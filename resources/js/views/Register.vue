@@ -78,7 +78,11 @@
 
             <div class="field is-grouped">
               <div class="control">
-                <button type="submit" class="button is-sm is-primary">Sign Up</button>
+                <button
+                  type="submit"
+                  class="button is-sm is-primary"
+                  :class="{'is-loading' : load}"
+                >Sign Up</button>
               </div>
             </div>
           </form>
@@ -98,7 +102,8 @@ export default {
         password: "",
         password_confirmation: ""
       },
-      errors: []
+      errors: [],
+      load: false
     };
   },
 
@@ -121,6 +126,7 @@ export default {
   methods: {
     register() {
       this.errors = [];
+      this.load = true;
 
       this.$store
         .dispatch("auth/register", this.form)
@@ -132,7 +138,8 @@ export default {
           if (status == 422 || status == 401) {
             this.errors = err.response.data.errors;
           }
-        });
+        })
+        .finally(() => (this.load = false));
     }
   }
 };

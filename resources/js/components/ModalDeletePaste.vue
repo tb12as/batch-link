@@ -20,7 +20,11 @@
         </article>
       </section>
       <footer class="modal-card-foot">
-        <button class="button is-danger" @click.prevent="sendDelete">Delete</button>
+        <button
+          class="button is-danger"
+          :class="{'is-loading' : load}"
+          @click.prevent="sendDelete"
+        >Delete</button>
         <button class="button" @click.prevent="cencel">Cancel</button>
       </footer>
     </div>
@@ -29,6 +33,12 @@
 
 <script>
 export default {
+  data() {
+    return {
+      load: false
+    };
+  },
+
   props: {
     showed: Boolean,
     slug: String,
@@ -37,9 +47,11 @@ export default {
 
   methods: {
     sendDelete() {
+      this.load = true;
       this.$store.dispatch("paste/delete", this.slug).then(() => {
         this.$emit("cencelOrDeleted");
         this.$emit("resetSearchQuery");
+        this.load = false;
         if (this.$router.history.current.name == "paste.show") {
           this.$router.push({ name: "paste.index" });
         }

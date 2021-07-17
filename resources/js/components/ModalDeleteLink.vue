@@ -20,7 +20,11 @@
         </article>
       </section>
       <footer class="modal-card-foot">
-        <button class="button is-danger" @click.prevent="sendDelete">Delete</button>
+        <button
+          class="button is-danger"
+          :class="{'is-loading' : load}"
+          @click.prevent="sendDelete"
+        >Delete</button>
         <button class="button" @click.prevent="cencel">Cancel</button>
       </footer>
     </div>
@@ -29,9 +33,23 @@
 
 <script>
 export default {
+  data() {
+    return {
+      load: false
+    };
+  },
+
+  watch: {
+    showed() {
+      if (this.showed) {
+        this.load = false;
+      }
+    }
+  },
+
   props: {
     showed: Boolean,
-    link: Object,
+    link: Object
   },
 
   methods: {
@@ -40,7 +58,8 @@ export default {
     },
 
     sendDelete() {
-        this.$emit("sendDelete");
+      this.load = true;
+      this.$emit("sendDelete");
     }
   }
 };

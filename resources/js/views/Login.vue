@@ -44,7 +44,11 @@
 
             <div class="field is-grouped">
               <div class="control">
-                <button type="submit" class="button is-sm is-primary">Login</button>
+                <button
+                  type="submit"
+                  class="button is-sm is-primary"
+                  :class="{'is-loading' : is_load}"
+                >Login</button>
               </div>
             </div>
           </form>
@@ -62,7 +66,8 @@ export default {
         email: "",
         password: ""
       },
-      errors: []
+      errors: [],
+      is_load: false
     };
   },
 
@@ -84,19 +89,19 @@ export default {
 
   methods: {
     login() {
+      this.is_load = true;
       this.errors = [];
 
       this.$store
         .dispatch("auth/login", this.form)
-        .then(() => {
-          this.$router.push({ name: "paste.index" });
-        })
+        .then(() => this.$router.push({ name: "paste.index" }))
         .catch(err => {
-          let status = err.response.status;
+          const status = err.response.status;
           if (status == 422 || status == 401) {
             this.errors = err.response.data.errors;
           }
-        });
+        })
+        .finally(() => (this.is_load = false));
     }
   }
 };
