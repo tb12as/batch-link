@@ -53,6 +53,10 @@ const auth = {
 
         dispatch("getUser");
       });
+    },
+
+    async changePassword({}, form) {
+      await axios.put("user/password", form);
     }
   }
 };

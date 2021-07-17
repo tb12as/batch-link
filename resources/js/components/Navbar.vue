@@ -7,8 +7,8 @@
   >
     <div class="navbar-brand">
       <a class="navbar-item" :href="`${appUrl}`">
-      <img :src="`${appUrl}img/black-logo.png`" alt="Batch Links" width="112" height="48">
-    </a>
+        <img :src="`${appUrl}img/black-logo.png`" alt="Batch Links" width="112" height="48" />
+      </a>
 
       <a
         role="button"
@@ -28,7 +28,7 @@
     <div id="navbarBasicExample" class="navbar-menu" :class="{'is-active' : open}">
       <div class="navbar-start">
         <!-- <a :href="`${appUrl}batch-links`" class="navbar-item">Public Batch</a> -->
-        
+
         <div class="navbar-item has-dropdown is-hoverable" v-if="authStatus">
           <a class="navbar-link">Your Batch</a>
 
@@ -73,6 +73,7 @@
           <a class="navbar-link">{{ user.name }}</a>
 
           <div class="navbar-dropdown">
+            <router-link :to="{name : 'change.password'}" class="navbar-item">Change Password</router-link>
             <a class="navbar-item" @click.prevent="logout">Logout</a>
           </div>
         </div>

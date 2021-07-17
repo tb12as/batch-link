@@ -10,6 +10,8 @@ import PasteDetail from "../views/Paste/Detail.vue";
 import PasteCreate from "../views/Paste/Create.vue";
 import PasteEdit from "../views/Paste/Edit.vue";
 
+import ChangePassword from "../views/ChangePassword.vue";
+
 import auth from "../store/modules/auth";
 
 const routes = [
@@ -65,7 +67,15 @@ const routes = [
     meta: {
       requiresAuth: true
     }
-  }
+  },
+  {
+    name: "change.password",
+    path: "/change-password",
+    component: ChangePassword,
+    meta: {
+      requiresAuth: true
+    }
+  },
 ];
 
 const router = new VueRouter({
