@@ -130,6 +130,7 @@
                   v-if="canSave"
                   class="button is-primary is-small m-1"
                   type="button"
+                  :class="{'is-loading' : load}"
                   @click.prevent="save"
                 >Save</button>
               </div>
@@ -173,7 +174,8 @@ export default {
       links: {
         title: "",
         original_link: ""
-      }
+      },
+      load: false
     };
   },
 
@@ -229,11 +231,15 @@ export default {
 
     save() {
       if (this.form.title) {
-        this.$store.dispatch("paste/save", this.form).catch(err => {
-          if (err.response.status == 422) {
-            this.errors = err.response.data.errors;
-          }
-        });
+        this.load = true;
+        this.$store
+          .dispatch("paste/save", this.form)
+          .catch(err => {
+            if (err.response.status == 422) {
+              this.errors = err.response.data.errors;
+            }
+          })
+          .finally(() => (this.load = false));
       } else {
         this.errors = { title: "The title field is required" };
       }

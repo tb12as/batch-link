@@ -130,6 +130,7 @@
                 <button
                   v-if="canSave"
                   class="button is-primary is-small m-1"
+                  :class="{'is-loading' : sending}"
                   type="button"
                   @click.prevent="save"
                 >Update</button>
@@ -181,7 +182,8 @@ export default {
       links: {
         title: "",
         original_link: ""
-      }
+      },
+      sending: false
     };
   },
 
@@ -238,7 +240,7 @@ export default {
 
     hideModalDeleteLink() {
       this.deleteMode = false;
-       this.selectedIndexDelete = null;
+      this.selectedIndexDelete = null;
       this.selectedToDelete = {};
     },
 
@@ -270,6 +272,7 @@ export default {
 
     save() {
       if (this.form.title) {
+        this.sending = true;
         this.$store
           .dispatch("paste/update", this.form)
           .then(() => {
@@ -279,7 +282,8 @@ export default {
             if (err.response.status == 422) {
               this.errors = err.response.data.errors;
             }
-          });
+          })
+          .finally(() => (this.sending = false));
       } else {
         this.errors = { title: "The title field is required" };
       }
