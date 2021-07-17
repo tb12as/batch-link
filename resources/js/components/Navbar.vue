@@ -6,9 +6,9 @@
     v-if="! isNotFound"
   >
     <div class="navbar-brand">
-      <a class="navbar-item" href="https://bulma.io">
-        <h5 class="has-text-weight-bold">Batch Links</h5>
-      </a>
+      <a class="navbar-item" :href="`${appUrl}`">
+      <img :src="`${appUrl}img/black-logo.png`" alt="Batch Links" width="112" height="48">
+    </a>
 
       <a
         role="button"
@@ -27,7 +27,7 @@
 
     <div id="navbarBasicExample" class="navbar-menu" :class="{'is-active' : open}">
       <div class="navbar-start">
-        <a :href="`${appUrl}batch-links`" class="navbar-item">Public Batch</a>
+        <!-- <a :href="`${appUrl}batch-links`" class="navbar-item">Public Batch</a> -->
         
         <div class="navbar-item has-dropdown is-hoverable" v-if="authStatus">
           <a class="navbar-link">Your Batch</a>

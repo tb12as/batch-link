@@ -6,7 +6,7 @@
     <div class="content">
         <div class="columns is-multiline">
             <div class="column {{ count($popular) > 0 ? 'is-two-thirds' : '' }} is-fullheight">
-                <div class="card">
+                <div class="card p-5">
                     <div class="card-content">
                         <div class="content">
                             @auth
@@ -19,8 +19,8 @@
                                 @auth You can create your own batch link <a href="{{ url('/my-batch/create') }}">here</a>
                                     if
                                     you want @endauth @guest
-                                    Want to create your own batch link? you have to <a href="{{ url('register') }}">create
-                                        account</a> / <a href="{{ url('login') }}"> login</a> first.
+                                    Want to create your own batch link? you have to <a href="{{ route('register') }}">create
+                                        account</a> / <a href="{{ route('login') }}"> login</a> first.
                                 @endguest</p>
 
                             <hr>
@@ -73,19 +73,23 @@
                 {{ Request::get('q') ? 'Search Result' : 'Latest Public Batch' }}</h3>
 
             <form action="{{ route('batch.search') }}" method="get">
-                <div class="field is-half mx-2">
-                    <div class="control">
-                        <input class="input m-1" type="search" value="{{ Request::get('q') ?? '' }}" placeholder="Search"
-                            name="q" autocomplete="off" />
-                    </div>
+              <div class="field has-addons is-half mx-2">
+                <div class="control">
+                  <input class="input" type="search" value="{{ Request::get('q') ?? '' }}" placeholder="Search" name="q" autocomplete="off" />
                 </div>
+                <div class="control">
+                  <button type="submit" class="button is-primary">
+                    Search
+                  </button>
+                </div>
+              </div>
             </form>
         </div>
 
         <div class="columns is-multiline">
             @forelse ($data as $index => $paste)
                 <div class="column is-one-third">
-                    <div class="card m-1">
+                    <div class="card m-1 p-3">
                         <div class="card-content">
                             <div class="content">
                                 <a href="{{ route('batch.show', $paste->slug) }}"

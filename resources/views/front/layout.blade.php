@@ -15,8 +15,8 @@
 
     <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="{{ url('/') }}">
-                <h5 class="has-text-weight-bold">Batch Links</h5>
+            <a class="navbar-item" href="{{ route('batch.index') }}">
+                <img src="{{ asset('img/white-logo-r.png') }}" alt="Batch Links" width="112" height="48">
             </a>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
@@ -29,9 +29,9 @@
 
         <div id="navbarBasicExample" class="navbar-menu">
             <div class="navbar-start">
-                <a class="navbar-item" href="{{ url('/batch-links') }}">
+                {{-- <a class="navbar-item" href="{{ url('/batch-links') }}">
                     Public Batch
-                </a>
+                </a> --}}
 
                 @auth
                     <div class="navbar-item has-dropdown is-hoverable">
