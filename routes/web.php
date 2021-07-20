@@ -16,24 +16,26 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('/', [PasteController::class, 'index'])->name('batch.index');
-Route::post('/viewed/{id}', [PasteController::class, 'addViewedCount'])->name('viewedCount');
-Route::get('/{slug}/d', [PasteController::class, 'show'])->name('batch.show');
-Route::get('/search', [PasteController::class, 'search'])->name('batch.search');
+Route::prefix('public-batch')->group(function () {
+    Route::get('/', [PasteController::class, 'index'])->name('batch.index');
+    Route::post('/viewed/{id}', [PasteController::class, 'addViewedCount'])->name('viewedCount');
+    Route::get('/{slug}/d', [PasteController::class, 'show'])->name('batch.show');
+    Route::get('/search', [PasteController::class, 'search'])->name('batch.search');
+});
 
 Route::get('/r/{hash}', [RedirectController::class, 'redirectView'])->name('redirect');
 Route::get('get-link/{hash}', [RedirectController::class, 'getOriginalLink'])->name('link.get');
 
 Route::resource('bookmarks', BookmarkController::class)
     ->middleware('auth')
-    ->only(['index', 'store' ,'destroy']);
+    ->only(['index', 'store', 'destroy']);
 
 Route::view('{any}', 'app')->where('any', '.*');
 
 // dummy
-Route::get('/login', fn() => view('app'))->name('login');
-Route::get('/sign-up', fn() => view('app'))->name('register');
+Route::get('/login', fn () => view('app'))->name('login');
+Route::get('/sign-up', fn () => view('app'))->name('register');
