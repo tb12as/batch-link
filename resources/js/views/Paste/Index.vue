@@ -15,14 +15,17 @@
             <div class="is-flex is-justify-content-space-between my-3 mx-2 is-flex-wrap-wrap">
               <h2>Your Batch</h2>
               <form @submit.prevent="sendSearch">
-                <div class="field is-half">
+                <div class="field has-addons is-half">
                   <div class="control">
                     <input
-                      class="input m-1"
+                      class="input"
                       type="search"
                       placeholder="Search"
                       v-model="searchQuery"
                     />
+                  </div>
+                  <div class="control">
+                    <button type="submit" class="button is-primary">Search</button>
                   </div>
                 </div>
               </form>
@@ -31,11 +34,11 @@
               <table class="table is-bordered is-striped is-hoverable is-fullwidth">
                 <thead>
                   <tr class="has-text-centered mx-auto">
-                    <th width="80">#</th>
-                    <th>Paste Title</th>
-                    <th width="110">Privacy</th>
-                    <th width="100">Visited</th>
-                    <th width="300">Action</th>
+                    <th width="50">#</th>
+                    <th width="350">Paste Title</th>
+                    <th width="70">Privacy</th>
+                    <th width="70">Visited</th>
+                    <th width="230">Action</th>
                   </tr>
                 </thead>
 
