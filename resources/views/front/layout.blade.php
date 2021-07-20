@@ -64,6 +64,7 @@
                         </a>
 
                         <div class="navbar-dropdown">
+                            <a href="{{ url('/change-password') }}" class="navbar-item">Change Password</a>
                             <form action="{{ route('logout') }}" method="post" id="logoutForm">@csrf</form>
                             <a class="navbar-item" onclick="document.getElementById('logoutForm').submit();">
                                 Logout
