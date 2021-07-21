@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Paste;
 use Illuminate\Http\Request;
+use Artesaos\SEOTools\Facades\SEOTools;
 
 class PasteController extends Controller
 {
@@ -19,6 +20,8 @@ class PasteController extends Controller
 
         $popular = $vars['popular'];
         $bookmarkIds = $vars['bookmarkIds'];
+
+        SEOTools::opengraph()->addImage(asset('img/black-logo.png'));
 
         return view('front.paste-index', compact('data', 'popular', 'bookmarkIds'));
     }
@@ -40,6 +43,9 @@ class PasteController extends Controller
         if (auth()->user()) {
             $bookmarkIds = auth()->user()->bookmarks()->pluck('paste_id')->toArray();
         }
+
+        SEOTools::setTitle($paste->title);
+        SEOTools::setDescription($paste->description ?? false);
 
         return view('front.paste-detail', compact('paste', 'data', 'bookmarkIds'));
     }
