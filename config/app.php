@@ -40,6 +40,7 @@ return [
     */
 
     'debug' => (bool) env('APP_DEBUG', false),
+    'minified_blade' => (bool) env('MIN_BLADE', false),
 
     /*
     |--------------------------------------------------------------------------
