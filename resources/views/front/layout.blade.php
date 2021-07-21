@@ -12,7 +12,7 @@
 
     <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <a class="navbar-item" href="{{ route('batch.index') }}">
+            <a class="navbar-item" href="{{ url('/') }}">
                 <img src="{{ asset('img/white-logo-r.png') }}" alt="Batch Links" width="112" height="48">
             </a>
 

@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('blademin')->group(function () {
     Route::get('/', function () {
-        return view('welcome');
+        return view('landing');
     });
 
     Route::prefix('public-batch')->group(function () {
