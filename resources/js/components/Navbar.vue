@@ -73,7 +73,11 @@
           <a class="navbar-link">{{ user.name }}</a>
 
           <div class="navbar-dropdown">
-            <router-link :to="{name : 'change.password'}" class="navbar-item">Change Password</router-link>
+            <router-link
+              @click.native="openOrClose"
+              :to="{name : 'change.password'}"
+              class="navbar-item"
+            >Change Password</router-link>
             <a class="navbar-item" @click.prevent="logout">Logout</a>
           </div>
         </div>
