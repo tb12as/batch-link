@@ -67,7 +67,8 @@ class PasteController extends Controller
     public function search(Request $request)
     {
         if ($q = $request->q) {
-            $pastes = Paste::where("title", "like", "%$q%")
+            $pastes = Paste::where('user_id', $request->user()->id)
+                ->where("title", "like", "%$q%")
                 ->orWhere("privacy", "like", "%$q%")
                 ->orWhere("viewed_count", "like", "%$q%")
                 ->latest()
