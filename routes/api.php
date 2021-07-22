@@ -27,13 +27,16 @@ Route::middleware('auth:sanctum')->group(function () {
         return response()->json([
             'name' => $d['name'],
             'email' => $d['email'],
+            'verified' => $d->hasVerifiedEmail(),
         ]);
     });
 
-    Route::get('paste/search/', [PasteController::class, 'search']);
-    Route::apiResource('paste', PasteController::class)
-        ->parameter('paste', 'paste:slug');
+    Route::middleware(['verified:login'])->group(function () {
+        Route::get('paste/search/', [PasteController::class, 'search']);
+        Route::apiResource('paste', PasteController::class)
+            ->parameter('paste', 'paste:slug');
 
-    Route::apiResource('link', LinkController::class)
-        ->parameter('link', 'link:hash');
+        Route::apiResource('link', LinkController::class)
+            ->parameter('link', 'link:hash');
+    });
 });

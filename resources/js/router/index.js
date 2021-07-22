@@ -2,6 +2,7 @@ import VueRouter from "vue-router";
 
 import Login from "../views/Login.vue";
 import Register from "../views/Register.vue";
+import Verify from "../views/VerifyEmail.vue";
 
 import NotFound from "../views/NotFound.vue";
 
@@ -37,11 +38,21 @@ const routes = [
     }
   },
   {
+    name: "verify",
+    path: "/email-verification",
+    component: Verify,
+    meta: {
+      requiresAuth: true,
+      mustVerified: false
+    }
+  },
+  {
     name: "paste.index",
     path: "/my-batch",
     component: PasteIndex,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      mustVerified: true
     }
   },
   {
@@ -49,7 +60,8 @@ const routes = [
     path: "/my-batch/:slug/d",
     component: PasteDetail,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      mustVerified: true
     }
   },
   {
@@ -57,7 +69,8 @@ const routes = [
     path: "/my-batch/create",
     component: PasteCreate,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      mustVerified: true
     }
   },
   {
@@ -65,7 +78,8 @@ const routes = [
     path: "/my-batch/:slug/edit",
     component: PasteEdit,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      mustVerified: true
     }
   },
   {
@@ -73,9 +87,10 @@ const routes = [
     path: "/change-password",
     component: ChangePassword,
     meta: {
-      requiresAuth: true
+      requiresAuth: true,
+      mustVerified: true
     }
-  },
+  }
 ];
 
 const router = new VueRouter({
@@ -84,24 +99,32 @@ const router = new VueRouter({
 });
 
 router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.requiresAuth)) {
-    // this route requires auth, check if logged in
-    // if not, redirect to login page.
+  const requireAuthAndVerified = to.matched.some(
+    record => record.meta.requiresAuth && record.meta.mustVerified
+  );
+  const isNotVerifiedUserPage = to.matched.some(
+    record => !record.meta.mustVerified
+  );
+  const isGuestPage = to.matched.some(record => record.meta.loginPage);
+
+  if (requireAuthAndVerified) {
     if (!auth.state.status) {
       next({
         path: "/login"
       });
-    } else {
-      next();
-    }
-  } else if (to.matched.some(record => record.meta.loginPage)) {
-    if (auth.state.status) {
+    } else if (auth.state.status && !auth.state.isVerifiedUser) {
       next({
-        name: "paste.index"
+        name: "verify"
       });
     } else {
       next();
     }
+  } else if (isGuestPage) {
+    auth.state.status ? next({ name: "paste.index" }) : next();
+  } else if (isNotVerifiedUserPage) {
+    auth.state.status && auth.state.isVerifiedUser
+      ? next({ name: "paste.index" })
+      : next();
   } else {
     next();
   }

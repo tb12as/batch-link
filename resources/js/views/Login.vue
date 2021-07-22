@@ -3,6 +3,12 @@
     <div class="column is-half card">
       <div class="card-content">
         <div class="content">
+          <article class="message is-success" v-if="success">
+            <div class="message-body">
+              <p>Login success, redirecting....</p>
+            </div>
+          </article>
+
           <h2 class="has-text-centered">Login</h2>
           <p class="has-text-centered">Please login to proceed.</p>
           <hr />
@@ -47,7 +53,7 @@
                 <button
                   type="submit"
                   class="button is-sm is-primary"
-                  :class="{'is-loading' : is_load}"
+                  :class="{'is-loading' : is_load || success}"
                 >Login</button>
               </div>
             </div>
@@ -67,6 +73,7 @@ export default {
         password: ""
       },
       errors: [],
+      success: false,
       is_load: false
     };
   },
@@ -94,9 +101,9 @@ export default {
 
       this.$store
         .dispatch("auth/login", this.form)
-        .then(() => this.$router.push({ name: "paste.index" }))
+        .then(() => (this.success = true))
         .catch(err => {
-          const status = err.response.status;
+          const status = err.response.status || null;
           if (status == 422 || status == 401) {
             this.errors = err.response.data.errors;
           }

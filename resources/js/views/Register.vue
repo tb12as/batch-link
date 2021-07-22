@@ -131,7 +131,7 @@ export default {
       this.$store
         .dispatch("auth/register", this.form)
         .then(() => {
-          this.$router.push({ name: "paste.index" });
+          this.$router.push({ name: "verify" });
         })
         .catch(err => {
           let status = err.response.status;

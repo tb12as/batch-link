@@ -32,7 +32,7 @@ Route::middleware('blademin')->group(function () {
     Route::get('get-link/{hash}', [RedirectController::class, 'getOriginalLink'])->name('link.get');
 
     Route::resource('bookmarks', BookmarkController::class)
-        ->middleware('auth')
+        ->middleware(['auth', 'verified:login'])
         ->only(['index', 'store', 'destroy']);
 });
 

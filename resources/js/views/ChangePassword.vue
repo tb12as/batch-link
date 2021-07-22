@@ -84,7 +84,12 @@ export default {
       is_load: false
     };
   },
+
   computed: {
+    user() {
+      return this.$store.state.auth.user;
+    },
+
     validation() {
       return Object.values(this.errors).flat();
     },
@@ -101,7 +106,11 @@ export default {
         .dispatch("auth/changePassword", this.form)
         .then(() => {
           this.errors = [];
-          this.$router.push({ name: "paste.index" });
+          if (this.user.verified) {
+            this.$router.push({ name: "paste.index" });
+          } else {
+            this.$router.push({ name: "verify" });
+          }
         })
         .catch(err => {
           const status = err.response.status;

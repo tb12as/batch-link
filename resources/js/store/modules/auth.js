@@ -1,9 +1,11 @@
 import axios from "../../api";
+import router from "../../router";
 
 const auth = {
   namespaced: true,
   state: {
     status: false,
+    isVerifiedUser: false,
     user: {}
   },
 
@@ -14,15 +16,25 @@ const auth = {
 
     setStatus(state, value) {
       state.status = value;
+    },
+
+    setVerifiedUser(state, value) {
+      state.isVerifiedUser = value;
     }
   },
 
   actions: {
-    async login({ commit, dispatch }, credentials) {
-      await axios.post("/login", credentials).then(res => {
+    async login({ commit, dispatch, state }, credentials) {
+      await axios.post("/login", credentials).then(() => {
         commit("setStatus", true);
 
-        dispatch("getUser");
+        dispatch("getUser").then(() => {
+          if (state.user.verified) {
+            router.push({ name: "paste.index" });
+          } else {
+            router.push({ name: "verify" });
+          }
+        });
       });
     },
 
@@ -32,6 +44,7 @@ const auth = {
         .then(res => {
           commit("setUser", res.data);
           commit("setStatus", true);
+          commit("setVerifiedUser", res.data.verified);
         })
         .catch(err => {
           if (err.response.status === 401) {
@@ -57,6 +70,16 @@ const auth = {
 
     async changePassword({}, form) {
       await axios.put("user/password", form);
+    },
+
+    async resendEmail({ state, dispatch }) {
+      dispatch("getUser");
+
+      if (!state.user.verified) {
+        await axios.post("/email/verification-notification");
+      } else {
+        router.push({ name: "paste.index" });
+      }
     }
   }
 };
