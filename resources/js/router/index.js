@@ -112,7 +112,7 @@ router.beforeEach((to, from, next) => {
       next({
         path: "/login"
       });
-    } else if (auth.state.status && !auth.state.isVerifiedUser) {
+    } else if (!auth.state.isVerifiedUser) {
       next({
         name: "verify"
       });
@@ -122,9 +122,13 @@ router.beforeEach((to, from, next) => {
   } else if (isGuestPage) {
     auth.state.status ? next({ name: "paste.index" }) : next();
   } else if (isNotVerifiedUserPage) {
-    auth.state.status && auth.state.isVerifiedUser
-      ? next({ name: "paste.index" })
-      : next();
+    if (auth.state.status && auth.state.isVerifiedUser) {
+      next({ name: "paste.index" });
+    } else if (!auth.state.status) {
+      next({ name: "login" });
+    } else {
+      next();
+    }
   } else {
     next();
   }
