@@ -35,7 +35,7 @@ class BladeMinified
                 '/\)[\r\n\t ]?{[\r\n\t ]+/s'                                        => '){',
                 '/,[\r\n\t ]?{[\r\n\t ]+/s'                                         => ',{',
                 '/\),[\r\n\t ]+/s'                                                  => '),',
-                '~[\r\n]+~' => '', // remove new line
+                // '~[\r\n]+~' => '', // remove new line
                 '~([\r\n\t ])?([a-zA-Z0-9]+)=\"([a-zA-Z0-9_\\-]+)\"([\r\n\t ])?~s'  => '$1$2=$3$4',
             ];
 

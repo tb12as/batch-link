@@ -28,13 +28,13 @@ Route::middleware('blademin')->group(function () {
         Route::get('/search', [PasteController::class, 'search'])->name('batch.search');
     });
 
-    Route::get('/r/{hash}', [RedirectController::class, 'redirectView'])->name('redirect');
-    Route::get('get-link/{hash}', [RedirectController::class, 'getOriginalLink'])->name('link.get');
-
     Route::resource('bookmarks', BookmarkController::class)
         ->middleware(['auth', 'verified:login'])
         ->only(['index', 'store', 'destroy']);
 });
+
+Route::get('/r/{hash}', [RedirectController::class, 'redirectView'])->name('redirect');
+Route::get('get-link/{hash}', [RedirectController::class, 'getOriginalLink'])->name('link.get');
 
 Route::view('{any}', 'app')->where('any', '.*');
 
