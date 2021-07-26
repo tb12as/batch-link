@@ -1,2 +1,4 @@
 User-agent: *
 Disallow:
+
+Sitemap: https://batch-link.my.id/sitemap.xml
