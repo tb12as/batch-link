@@ -1,6 +1,6 @@
 @extends('front.layout')
 
-@section('title', 'Batch Link')
+@section('title', 'Public Batch')
 
 @section('content')
     <div class="content">

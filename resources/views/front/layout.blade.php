@@ -15,76 +15,70 @@
 <body>
 
     <nav class="navbar is-primary is-fixed-top" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="{{ url('/') }}">
-                <img src="{{ asset('img/white-logo-r.png') }}" alt="Batch Links" width="112" height="48">
-            </a>
-
-            <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
-                data-target="navbarBasicExample">
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-                <span aria-hidden="true"></span>
-            </a>
-        </div>
-
-        <div id="navbarBasicExample" class="navbar-menu">
-            <div class="navbar-start">
-                {{-- <a class="navbar-item" href="{{ url('/batch-links') }}">
-                    Public Batch
-                </a> --}}
-
-                @auth
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                            Your Batch
-                        </a>
-
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="{{ url('/my-batch') }}">
-                                All Batches
-                            </a>
-
-                            <a class="navbar-item" href="{{ url('/my-batch/create') }}">
-                                New Batch
-                            </a>
-                        </div>
-                    </div>
-
-                    <a class="navbar-item" href="{{ route('bookmarks.index') }}">
-                        Bookmarks
-                    </a>
-                @endauth
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="{{ url('/') }}">
+                    <img src="{{ asset('img/white-logo-r.png') }}" alt="Batch Links" width="112" height="48">
+                </a>
+                <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
+                    data-target="navbarBasicExample">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
             </div>
-
-            <div class="navbar-end">
-                @auth
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                            {{ Auth::user()->name }}
+            <div id="navbarBasicExample" class="navbar-menu">
+                <div class="navbar-start">
+                    {{-- <a class="navbar-item" href="{{ url('/batch-links') }}">
+                        Public Batch
+                    </a> --}}
+                    @auth
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                Your Batch
+                            </a>
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item" href="{{ url('/my-batch') }}">
+                                    All Batches
+                                </a>
+                                <a class="navbar-item" href="{{ url('/my-batch/create') }}">
+                                    New Batch
+                                </a>
+                            </div>
+                        </div>
+                        <a class="navbar-item" href="{{ route('bookmarks.index') }}">
+                            Bookmarks
                         </a>
-
-                        <div class="navbar-dropdown">
-                            <a href="{{ url('/change-password') }}" class="navbar-item">Change Password</a>
-                            <form action="{{ route('logout') }}" method="post" id="logoutForm">@csrf</form>
-                            <a class="navbar-item" onclick="document.getElementById('logoutForm').submit();">
-                                Logout
+                    @endauth
+                </div>
+                <div class="navbar-end">
+                    @auth
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                {{ Auth::user()->name }}
                             </a>
+                            <div class="navbar-dropdown">
+                                <a href="{{ url('/change-password') }}" class="navbar-item">Change Password</a>
+                                <form action="{{ route('logout') }}" method="post" id="logoutForm">@csrf</form>
+                                <a class="navbar-item" onclick="document.getElementById('logoutForm').submit();">
+                                    Logout
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                @endauth
-                @guest
-                    <div class="navbar-item">
-                        <div class="buttons">
-                            <a class="button is-primary" href="{{ url('/sign-up') }}">
-                                <strong>Sign up</strong>
-                            </a>
-                            <a class="button is-light" href="{{ url('/login') }}">
-                                Log in
-                            </a>
+                    @endauth
+                    @guest
+                        <div class="navbar-item">
+                            <div class="buttons">
+                                <a class="button is-primary" href="{{ url('/sign-up') }}">
+                                    <strong>Sign up</strong>
+                                </a>
+                                <a class="button is-light" href="{{ url('/login') }}">
+                                    Log in
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                @endguest
+                    @endguest
+                </div>
             </div>
         </div>
     </nav>

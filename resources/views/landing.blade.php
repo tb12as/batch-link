@@ -49,53 +49,49 @@
 <body>
     <!-- NavBar va a todo lo ancho -->
     <nav class="navbar" role="navigation" aria-label="main navigation">
-        <div class="navbar-brand">
-            <a class="navbar-item" href="{{ url('/') }}">
-                <img src="{{ asset('img/black-logo.png') }}" width="112" height="28">
-            </a>
-        </div>
-
-        <div class="navbar-menu">
-            <div class="navbar-start">
-                @auth
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                            Your Batch
-                        </a>
-
-                        <div class="navbar-dropdown">
-                            <a class="navbar-item" href="{{ url('/my-batch') }}">
-                                All Batches
-                            </a>
-
-                            <a class="navbar-item" href="{{ url('/my-batch/create') }}">
-                                New Batch
-                            </a>
-                        </div>
-                    </div>
-
-                    <a class="navbar-item" href="{{ route('bookmarks.index') }}">
-                        Bookmarks
-                    </a>
-                @endauth
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="{{ url('/') }}">
+                    <img src="{{ asset('img/black-logo.png') }}" width="112" height="28">
+                </a>
             </div>
-
-            <div class="navbar-end">
-                @auth
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <a class="navbar-link">
-                            {{ Auth::user()->name }}
-                        </a>
-
-                        <div class="navbar-dropdown">
-                            <a href="{{ url('/change-password') }}" class="navbar-item">Change Password</a>
-                            <form action="{{ route('logout') }}" method="post" id="logoutForm">@csrf</form>
-                            <a class="navbar-item" onclick="document.getElementById('logoutForm').submit();">
-                                Logout
+            <div class="navbar-menu">
+                <div class="navbar-start">
+                    @auth
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                Your Batch
                             </a>
+                            <div class="navbar-dropdown">
+                                <a class="navbar-item" href="{{ url('/my-batch') }}">
+                                    All Batches
+                                </a>
+                                <a class="navbar-item" href="{{ url('/my-batch/create') }}">
+                                    New Batch
+                                </a>
+                            </div>
                         </div>
-                    </div>
-                @endauth
+                        <a class="navbar-item" href="{{ route('bookmarks.index') }}">
+                            Bookmarks
+                        </a>
+                    @endauth
+                </div>
+                <div class="navbar-end">
+                    @auth
+                        <div class="navbar-item has-dropdown is-hoverable">
+                            <a class="navbar-link">
+                                {{ Auth::user()->name }}
+                            </a>
+                            <div class="navbar-dropdown">
+                                <a href="{{ url('/change-password') }}" class="navbar-item">Change Password</a>
+                                <form action="{{ route('logout') }}" method="post" id="logoutForm">@csrf</form>
+                                <a class="navbar-item" onclick="document.getElementById('logoutForm').submit();">
+                                    Logout
+                                </a>
+                            </div>
+                        </div>
+                    @endauth
+                </div>
             </div>
         </div>
     </nav>
