@@ -180,6 +180,7 @@ export default {
         links: []
       },
       links: {
+        link_id: null,
         title: "",
         original_link: ""
       },
@@ -225,8 +226,11 @@ export default {
     },
 
     resetEditMode() {
-      this.links.title = "";
-      this.links.original_link = "";
+      this.links = {
+        link_id: null,
+        title: "",
+        original_link: ""
+      };
 
       this.editLinkMode = false;
       this.editingIndex = null;
