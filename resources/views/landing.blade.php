@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Welcome to Batch Link!</title>
+    <title>Batch Link - Share Multiple Links at Once</title>
     <link rel="stylesheet" href="{{ asset('css/app.css')  }}">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
@@ -18,7 +18,7 @@
     <meta property="og:url" content="{{ url()->current() }}" />
     <meta property="og:site_name" content="Batch Link" />
     <meta property="og:locale" content="en-us" />
-    <meta property="og:image" content="http://localhost:8000/img/black-logo.png" />
+    <meta property="og:image" content="{{ asset('img/black-logo.png') }}" />
 
 
     <style>
@@ -71,7 +71,7 @@
                                 </a>
                             </div>
                         </div>
-                        <a class="navbar-item" href="{{ route('bookmarks.index') }}">
+                        <a class="navbar-item" href="{{ url('/bookmarks') }}">
                             Bookmarks
                         </a>
                     @endauth

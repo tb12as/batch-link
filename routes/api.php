@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\BookmarkController;
 use App\Http\Controllers\Api\LinkController;
 use App\Http\Controllers\Api\PasteController;
 use App\Http\Controllers\AuthController;
@@ -38,5 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::apiResource('link', LinkController::class)
             ->parameter('link', 'link:hash');
+
+        Route::apiResource('bookmarks', BookmarkController::class)
+            ->only('index', 'destroy', 'store');
     });
 });

@@ -46,7 +46,7 @@
                                 </a>
                             </div>
                         </div>
-                        <a class="navbar-item" href="{{ route('bookmarks.index') }}">
+                        <a class="navbar-item" href="{{ url('/bookmarks') }}">
                             Bookmarks
                         </a>
                     @endauth

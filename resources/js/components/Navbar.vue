@@ -48,7 +48,7 @@
             </div>
           </div>
 
-          <a v-if="authStatus" :href="`${appUrl}bookmarks`" class="navbar-item">Bookmarks</a>
+          <router-link v-if="authStatus" :to="{name : 'bookmark'}" class="navbar-item">Bookmarks</router-link>
         </div>
 
         <div class="navbar-end">

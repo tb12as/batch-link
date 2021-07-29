@@ -27,10 +27,6 @@ Route::middleware('blademin')->group(function () {
         Route::get('/{slug}/d', [PasteController::class, 'show'])->name('batch.show');
         Route::get('/search', [PasteController::class, 'search'])->name('batch.search');
     });
-
-    Route::resource('bookmarks', BookmarkController::class)
-        ->middleware(['auth', 'verified:login'])
-        ->only(['index', 'store', 'destroy']);
 });
 
 Route::get('/r/{hash}', [RedirectController::class, 'redirectView'])->name('redirect');

@@ -12,6 +12,7 @@ import PasteCreate from "../views/Paste/Create.vue";
 import PasteEdit from "../views/Paste/Edit.vue";
 
 import ChangePassword from "../views/ChangePassword.vue";
+import Bookmarks from "../views/Bookmark.vue";
 
 import auth from "../store/modules/auth";
 
@@ -77,6 +78,15 @@ const routes = [
     name: "paste.edit",
     path: "/my-batch/:slug/edit",
     component: PasteEdit,
+    meta: {
+      requiresAuth: true,
+      mustVerified: true
+    }
+  },
+  {
+    name: "bookmark",
+    path: "/bookmarks",
+    component: Bookmarks,
     meta: {
       requiresAuth: true,
       mustVerified: true

@@ -5,6 +5,7 @@ import Vuex from "vuex";
 import AuthModule from "./modules/auth";
 import PasteModule from "./modules/pastes";
 import LinkModule from "./modules/links";
+import BookmarkModule from "./modules/bookmark";
 
 Vue.use(Vuex);
 
@@ -27,7 +28,8 @@ const store = new Vuex.Store({
   modules: {
     auth: AuthModule,
     paste: PasteModule,
-    link: LinkModule
+    link: LinkModule,
+    bookmark: BookmarkModule,
   }
 });
 
