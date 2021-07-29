@@ -21,6 +21,7 @@ class PasteController extends Controller
         $popular = $vars['popular'];
         $bookmarkIds = $vars['bookmarkIds'];
 
+        SEOTools::setTitle('Public Batch');
         SEOTools::opengraph()->addImage(asset('img/black-logo.png'));
 
         return view('front.paste-index', compact('data', 'popular', 'bookmarkIds'));
