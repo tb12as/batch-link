@@ -87,14 +87,18 @@ class PasteController extends Controller
 
     private function storeLinks(array $links, Paste $paste)
     {
-        foreach ($links as $link) {
-            $paste->links()->updateOrCreate(['id' => $link['link_id'] ?? null], [
-                'user_id' => Auth::id(),
-                'title' => $link['title'],
-                'hash' => md5(microtime()),
-                'original_link' => $link['original_link']
-            ]);
+        foreach ($links as $key => $value) {
+          if(is_array($value)) {
+            $links[$key]['id'] = $value['link_id'] ?? null;
+            $links[$key]['paste_id'] = $paste->id;
+            $links[$key]['user_id'] = Auth::id();
+            $links[$key]['hash'] = md5(microtime());
+
+            unset($links[$key]['link_id']);
+          }
         }
+
+        $paste->links()->upsert($links, ['id']);
 
         return new PasteResource($paste);
     }
