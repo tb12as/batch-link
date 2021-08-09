@@ -24,7 +24,7 @@
           class="button is-danger"
           :class="{'is-loading' : load}"
           @click.prevent="sendDelete"
-        >Delete</button>
+        ><i class="fa fa-trash-o" aria-hidden="true"></i></button>
         <button class="button" @click.prevent="cencel">Cancel</button>
       </footer>
     </div>

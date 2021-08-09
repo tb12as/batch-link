@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Batch Link - Share Multiple Links at Once</title>
-    <link rel="stylesheet" href="{{ asset('css/app.css')  }}">
+    <link rel="stylesheet" href="{{ asset('css/app.css') }}">
     <link href="https://fonts.googleapis.com/css2?family=Merriweather&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 
@@ -57,27 +57,19 @@
             </div>
             <div class="navbar-menu">
                 <div class="navbar-start">
-                    @auth
-                        <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link">
-                                Your Batch
-                            </a>
-                            <div class="navbar-dropdown">
-                                <a class="navbar-item" href="{{ url('/my-batch') }}">
-                                    All Batches
-                                </a>
-                                <a class="navbar-item" href="{{ url('/my-batch/create') }}">
-                                    New Batch
-                                </a>
-                            </div>
-                        </div>
-                        <a class="navbar-item" href="{{ url('/bookmarks') }}">
-                            Bookmarks
-                        </a>
-                    @endauth
+                    <a class="navbar-item" href="{{ url('/public-batch') }}">
+                        Public Batch
+                    </a>
                 </div>
                 <div class="navbar-end">
                     @auth
+                        <a class="navbar-item" href="{{ url('/my-batch') }}">
+                            My Batches
+                        </a>
+                        <a class="navbar-item" href="{{ url('/bookmarks') }}">
+                            Bookmarks
+                        </a>
+
                         <div class="navbar-item has-dropdown is-hoverable">
                             <a class="navbar-link">
                                 {{ Auth::user()->name }}

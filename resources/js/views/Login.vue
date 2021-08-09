@@ -1,14 +1,8 @@
 <template>
   <div class="columns is-flex is-justify-content-center m-6">
-    <div class="column is-half card">
+    <div class="column is-half card" v-if="! success">
       <div class="card-content">
         <div class="content">
-          <article class="message is-success" v-if="success">
-            <div class="message-body">
-              <p>Login success, redirecting....</p>
-            </div>
-          </article>
-
           <h2 class="has-text-centered">Login</h2>
           <p class="has-text-centered">Please login to proceed.</p>
           <hr />

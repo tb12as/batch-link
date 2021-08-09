@@ -29,30 +29,18 @@
             </div>
             <div id="navbarBasicExample" class="navbar-menu">
                 <div class="navbar-start">
-                    {{-- <a class="navbar-item" href="{{ url('/batch-links') }}">
+                    <a class="navbar-item" href="{{ url('/public-batch') }}">
                         Public Batch
-                    </a> --}}
-                    @auth
-                        <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link">
-                                Your Batch
-                            </a>
-                            <div class="navbar-dropdown">
-                                <a class="navbar-item" href="{{ url('/my-batch') }}">
-                                    All Batches
-                                </a>
-                                <a class="navbar-item" href="{{ url('/my-batch/create') }}">
-                                    New Batch
-                                </a>
-                            </div>
-                        </div>
-                        <a class="navbar-item" href="{{ url('/bookmarks') }}">
-                            Bookmarks
-                        </a>
-                    @endauth
+                    </a>
                 </div>
                 <div class="navbar-end">
                     @auth
+                        <a class="navbar-item" href="{{ url('/my-batch') }}">
+                            My Batches
+                        </a>
+                        <a class="navbar-item" href="{{ url('/bookmarks') }}">
+                            Bookmarks
+                        </a>
                         <div class="navbar-item has-dropdown is-hoverable">
                             <a class="navbar-link">
                                 {{ Auth::user()->name }}

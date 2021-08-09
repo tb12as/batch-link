@@ -1,7 +1,7 @@
 <template>
-  <div class="columns" v-if="! load">
-    <div class="column m-1 mt-4">
-      <div class="card">
+  <div class="columns">
+    <div class="column is-12">
+      <div class="card" v-if="! load">
         <delete-modal
           :slug="selectedSlug"
           :title="selectedTitle"
@@ -9,23 +9,23 @@
           @cencelOrDeleted="unselect"
           @resetSearchQuery="resetSearchQuery"
         ></delete-modal>
-
         <div class="card-content">
           <div class="content">
+            <router-link class="button is-primary is-rounded p-1 px-2 is-small" :to="{name: 'paste.create'}">
+              <i aria-hidden="true" class="fa fa-plus-circle fa-2x"></i> <span class="ml-2"> New Batch</span>
+            </router-link>
+
             <div class="is-flex is-justify-content-space-between my-3 mx-2 is-flex-wrap-wrap">
               <h2>Your Batch</h2>
               <form @submit.prevent="sendSearch">
                 <div class="field has-addons is-half">
                   <div class="control">
-                    <input
-                      class="input"
-                      type="search"
-                      placeholder="Search"
-                      v-model="searchQuery"
-                    />
+                    <input class="input" type="search" placeholder="Search" v-model="searchQuery" />
                   </div>
                   <div class="control">
-                    <button type="submit" class="button is-primary">Search</button>
+                    <button type="submit" class="button is-primary">
+                      <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
                   </div>
                 </div>
               </form>
@@ -41,7 +41,6 @@
                     <th width="230">Action</th>
                   </tr>
                 </thead>
-
                 <tbody>
                   <tr v-if="pastes.data.length < 1 && !searchMode">
                     <td colspan="5" class="has-text-centered">
@@ -49,14 +48,12 @@
                       <router-link :to="{name: 'paste.create'}">here</router-link>
                     </td>
                   </tr>
-
                   <tr v-if="pastes.data.length < 1 && searchMode">
                     <td
                       colspan="5"
                       class="has-text-centered"
                     >Can't find anything with query {{ this.searchQuery }}</td>
                   </tr>
-
                   <tr v-for="(paste, i) in pastes.data" :key="i">
                     <td class="has-text-centered">{{ i+1 }}</td>
                     <td class="break-word">{{ paste.title }}</td>
@@ -64,23 +61,28 @@
                     <td>{{ (paste.visited_count || 0) + (paste.visited_count > 1 ? " times" : " time") }}</td>
                     <td class="has-text-centered">
                       <button
-                        class="button is-danger is-small m-1"
+                        class="button is-small is-danger m-1"
                         @click="selectDel(paste.slug, paste.title)"
-                      >Delete</button>
+                      >
+                        <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                      </button>
                       <router-link
-                        class="button is-link is-small m-1"
+                        class="button is-small is-link m-1"
                         :to="{name: 'paste.show', params: {slug: paste.slug}}"
-                      >Detail</router-link>
+                      >
+                        <i class="fa fa-info-circle fa-lg" aria-hidden="true"></i>
+                      </router-link>
                       <router-link
-                        class="button is-warning is-small m-1"
+                        class="button is-small is-warning m-1"
                         :to="{name: 'paste.edit', params: {slug: paste.slug}}"
-                      >Edit</router-link>
+                      >
+                        <i class="fa fa-pencil-square fa-lg" aria-hidden="true"></i>
+                      </router-link>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-
             <nav
               class="pagination is-rounded"
               role="navigation"
@@ -93,13 +95,11 @@
                 @click.prevent="paginateOnChange(pastes.links.prev)"
                 :disabled="!pastes.links.prev"
               >Previous</a>
-
               <a
                 class="pagination-next"
                 @click.prevent="paginateOnChange(pastes.links.next)"
                 :disabled="!pastes.links.next"
               >Next</a>
-
               <ul class="pagination-list">
                 <li v-for="(link, i) in pastes.meta.links.slice(1, -1)" :key="i">
                   <a

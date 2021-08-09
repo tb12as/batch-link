@@ -27,7 +27,9 @@
           </div>
         </section>
         <footer class="modal-card-foot">
-          <button class="button is-warning" type="submit">Edit</button>
+          <button class="button is-warning" type="submit">
+            <i class="fa fa-pencil-square fa-lg" aria-hidden="true"></i>
+          </button>
           <button class="button" @click.prevent="cencel">Cancel</button>
         </footer>
       </form>
