@@ -1,5 +1,5 @@
 <template>
-  <div class="columns is-flex is-justify-content-center m-6">
+  <div class="columns is-flex is-justify-content-center mt-6">
     <div class="column is-half card" v-if="! success">
       <div class="card-content">
         <div class="content">
