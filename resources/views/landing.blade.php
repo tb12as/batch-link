@@ -71,7 +71,7 @@
                         </a>
 
                         <div class="navbar-item has-dropdown is-hoverable">
-                            <a class="navbar-link">
+                            <a class="navbar-link is-capitalized">
                                 {{ Auth::user()->name }}
                             </a>
                             <div class="navbar-dropdown">
