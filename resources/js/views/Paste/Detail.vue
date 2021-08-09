@@ -1,9 +1,9 @@
 <template>
-  <div :class="{'columns' : !pasteNotFound}">
+  <div :class="{'columns' : ! pasteNotFound}">
     <NotFound v-if="pasteNotFound" />
 
-    <div class="column" v-if="! load && !pasteNotFound">
-      <div class="card">
+    <div class="column is-12">
+      <div class="card" v-if="! load && !pasteNotFound">
         <div class="card-content">
           <div class="content">
             <modal-delete
@@ -12,17 +12,13 @@
               :title="paste.title"
               @cencelOrDeleted="toggleModal"
             ></modal-delete>
-
             <h2 class="break-word">{{ paste.title }}</h2>
-
             <article class="message is-primary" v-if="paste.links.length < 1">
               <div class="message-body">
                 <p>This paste doesn't have any link</p>
               </div>
             </article>
-
             <p>{{ paste.description }}</p>
-
             <table class="table is-bordered" v-if="paste.links.length > 0">
               <thead class="has-text-centered">
                 <tr>
@@ -41,7 +37,6 @@
                       target="blank"
                       :href="`${appUrl}r/${link.hash}`"
                     >Test Redirect</a>
-
                     <a
                       class="button is-small is-primary m-1"
                       target="blank"
@@ -59,7 +54,6 @@
             class="card-footer-item"
             :to="{name: 'paste.edit', params: {slug: paste.slug}}"
           >Edit</router-link>
-
           <a href="#" class="card-footer-item" @click.prevent="toggleModal">Delete</a>
         </footer>
       </div>

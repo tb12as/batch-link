@@ -1,8 +1,8 @@
 <template>
-  <div :class="{'columns' : !pasteNotFound}">
+  <div :class="{'columns' : ! pasteNotFound}">
     <NotFound v-if="pasteNotFound" />
 
-    <div class="column is-half mt-4" v-if="! pasteNotFound && ! load">
+    <div class="column is-6" v-if="! pasteNotFound && ! load">
       <div class="card">
         <div class="card-header">
           <p class="card-header-title">Batch Edit</p>
@@ -58,7 +58,7 @@
       </div>
     </div>
 
-    <div class="column is-half mt-4" v-if="! pasteNotFound && ! load">
+    <div class="column is-6" v-if="! pasteNotFound && ! load">
       <div class="card">
         <div class="card-header">
           <p class="card-header-title">Links Edit</p>
@@ -79,20 +79,31 @@
                 <tr>
                   <td colspan="3" class="has-text-centered break-word">
                     <b>{{ form.title }}</b>
+                    <p class="is-small">{{ form.description }}</p>
                   </td>
                 </tr>
                 <tr v-for="(link, i) in form.links" :key="i">
                   <td class="has-text-weight-bold break-word">{{ link.title }}</td>
-                  <td class="break-word">{{ link.original_link }}</td>
+                  <td class="break-word">
+                    {{ link.original_link }}
+                    <span
+                      class="tag is-danger"
+                      v-if="linksIndexError.includes(i)"
+                    >
+                      <i class="fa fa-exclamation" aria-hidden="true"></i>
+                    </span>
+                  </td>
                   <td>
                     <button
                       class="button is-danger is-small m-1"
                       @click.prevent="showModalDeleteLink(i, form.links[i] || null)"
-                    >Delete</button>
+                    >
+                      <i class="fa fa-trash-o fa-lg" aria-hidden="true"></i>
+                    </button>
 
-                    <button class="button is-warning is-small m-1" @click.prevent="editLink(i)">Edit</button>
-
-                    <span class="tag is-danger" v-if="linksIndexError.includes(i)">!</span>
+                    <button class="button is-warning is-small m-1" @click.prevent="editLink(i)">
+                      <i class="fa fa-pencil-square fa-lg" aria-hidden="true"></i>
+                    </button>
                   </td>
                 </tr>
               </tbody>

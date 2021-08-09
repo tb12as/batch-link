@@ -104,6 +104,8 @@ const routes = [
 ];
 
 const router = new VueRouter({
+  // linkActiveClass: 'is-active',
+  linkExactActiveClass: "is-active",
   mode: "history",
   routes: routes
 });
@@ -123,9 +125,13 @@ router.beforeEach((to, from, next) => {
         path: "/login"
       });
     } else if (!auth.state.isVerifiedUser) {
-      next({
-        name: "verify"
-      });
+      if (to.name == "verify") {
+        next();
+      } else {
+        next({
+          name: "verify"
+        });
+      }
     } else {
       next();
     }

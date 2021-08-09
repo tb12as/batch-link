@@ -1,70 +1,68 @@
 <template>
-  <div class="columns is-flex is-justify-content-center m-6">
-    <div class="column is-half card">
-      <div class="card-content">
-        <div class="content">
-          <h2 class="has-text-centered">Change Password</h2>
-          <hr />
-
-          <form @submit.prevent="save">
-            <div class="field">
-              <div class="control">
-                <input
-                  class="input p-3"
-                  type="password"
-                  placeholder="Current Password"
-                  v-model="form.current_password"
-                  :class="{'is-danger' : keys.includes('current_password')}"
-                />
-                <p
-                  v-if="keys.includes('current_password')"
-                  class="help is-danger"
-                >{{ validation[keys.indexOf('current_password')] }}</p>
+  <div class="columns">
+    <div class="column is-7">
+      <div class="card">
+        <div class="card-content">
+          <div class="content">
+            <h2 class="has-text-centered">Change Password</h2>
+            <hr />
+            <form @submit.prevent="save">
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input p-3"
+                    type="password"
+                    placeholder="Current Password"
+                    v-model="form.current_password"
+                    :class="{'is-danger' : keys.includes('current_password')}"
+                  />
+                  <p
+                    v-if="keys.includes('current_password')"
+                    class="help is-danger"
+                  >{{ validation[keys.indexOf('current_password')] }}</p>
+                </div>
               </div>
-            </div>
-
-            <div class="field">
-              <div class="control">
-                <input
-                  class="input p-3"
-                  type="password"
-                  placeholder="Password"
-                  v-model="form.password"
-                  :class="{'is-danger' : keys.includes('password')}"
-                />
-                <p
-                  v-if="keys.includes('password')"
-                  class="help is-danger"
-                >{{ validation[keys.indexOf('password')] }}</p>
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input p-3"
+                    type="password"
+                    placeholder="Password"
+                    v-model="form.password"
+                    :class="{'is-danger' : keys.includes('password')}"
+                  />
+                  <p
+                    v-if="keys.includes('password')"
+                    class="help is-danger"
+                  >{{ validation[keys.indexOf('password')] }}</p>
+                </div>
               </div>
-            </div>
-
-            <div class="field">
-              <div class="control">
-                <input
-                  class="input p-4"
-                  type="password"
-                  placeholder="Password Confirmation"
-                  v-model="form.password_confirmation"
-                  :class="{'is-danger' : keys.includes('password_confirmation')}"
-                />
-                <p
-                  v-if="keys.includes('password_confirmation')"
-                  class="help is-danger"
-                >{{ validation[keys.indexOf('password_confirmation')] }}</p>
+              <div class="field">
+                <div class="control">
+                  <input
+                    class="input p-4"
+                    type="password"
+                    placeholder="Password Confirmation"
+                    v-model="form.password_confirmation"
+                    :class="{'is-danger' : keys.includes('password_confirmation')}"
+                  />
+                  <p
+                    v-if="keys.includes('password_confirmation')"
+                    class="help is-danger"
+                  >{{ validation[keys.indexOf('password_confirmation')] }}</p>
+                </div>
               </div>
-            </div>
-
-            <div class="field is-grouped">
-              <div class="control">
-                <button
-                  type="submit"
-                  class="button is-sm is-primary"
-                  :class="{'is-loading' : is_load}"
-                >Save Change</button>
+              <div class="field is-grouped">
+                <div class="control">
+                  <button
+                    type="submit"
+                    class="button is-sm is-primary"
+                    :class="{'is-loading' : is_load}"
+                  >Save Change</button>
+                </div>
               </div>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>
