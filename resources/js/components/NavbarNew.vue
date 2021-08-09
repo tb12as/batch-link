@@ -36,7 +36,7 @@
         </div>
 
         <div class="navbar-item has-dropdown is-hoverable" v-if="authStatus">
-          <a class="navbar-link">{{ user.name }}</a>
+          <a class="navbar-link is-capitalized">{{ user.name }}</a>
 
           <div class="navbar-dropdown">
             <router-link
